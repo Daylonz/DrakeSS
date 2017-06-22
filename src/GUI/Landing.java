@@ -17,11 +17,7 @@ public class Landing extends Application {
         primaryStage.setTitle("DrakeSS - Login");
         primaryStage.setScene(scene);
         primaryStage.getIcons().add(new Image("/GUI/img/drake-dark.png"));
+        primaryStage.setResizable(false);
         primaryStage.show();
-    }
-
-
-    public static void main(String[] args) {
-        launch(args);
     }
 }

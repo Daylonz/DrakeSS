@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="DrakeSS:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/DrakeSS_jar</output-path>
+    <root id="archive" name="DrakeSS.jar">
+      <element id="module-output" name="DrakeSS" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/lib/javax.mail.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
