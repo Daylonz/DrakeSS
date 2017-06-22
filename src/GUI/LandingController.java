@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -42,7 +43,10 @@ public class LandingController {
                     stage.initModality(Modality.APPLICATION_MODAL);
                     stage.initStyle(StageStyle.DECORATED);
                     stage.setTitle("Password Reset");
-                    stage.setScene(new Scene(root1));
+                    stage.getIcons().add(new Image("/GUI/img/drake-dark.png"));
+                    Scene scene = new Scene(root1);
+                    scene.getStylesheets().add("css/Style.css");
+                    stage.setScene(scene);
                     stage.show();
                 }
                 catch (IOException e) {

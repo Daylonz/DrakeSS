@@ -9,6 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -43,7 +44,11 @@ public class ResetPasswordController {
                 stage.initModality(Modality.APPLICATION_MODAL);
                 stage.initStyle(StageStyle.DECORATED);
                 stage.setTitle("Main Menu");
-                stage.setScene(new Scene(root1));
+                stage.getIcons().add(new Image("/GUI/img/drake-dark.png"));
+                Scene scene = new Scene(root1);
+                scene.getStylesheets().add("css/Style.css");
+                stage.setScene(scene);
+                stage.show();
                 stage.show();
             }
             catch (IOException e) {
