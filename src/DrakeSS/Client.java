@@ -64,4 +64,15 @@ public class Client {
         }
         return null;
     }
+
+    public static boolean attemptReset(String email)
+    {
+        User u = userFromEmail(email);
+        if (u != null)
+        {
+            u.sendPasswordReset();
+            return true;
+        }
+        return false;
+    }
 }

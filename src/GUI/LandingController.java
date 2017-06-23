@@ -18,6 +18,7 @@ import java.security.MessageDigest;
 public class LandingController {
 
     public TextField loginUser;
+    public TextField resetEmail;
     public PasswordField loginPassword;
     public Button loginButton;
     public Label invalidCredentials;
@@ -64,7 +65,7 @@ public class LandingController {
                     stage = new Stage();
                     stage.initModality(Modality.APPLICATION_MODAL);
                     stage.initStyle(StageStyle.DECORATED);
-                    stage.setTitle("Referee Menu");
+                    stage.setTitle("Main Menu");
                     stage.setScene(new Scene(root1));
                     stage.show();
                 } catch (Exception e) {}
@@ -77,6 +78,53 @@ public class LandingController {
         catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void forgotPass(ActionEvent event) throws IOException
+    {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Forgot.fxml"));
+        Parent root1 = (Parent) fxmlLoader.load();
+        Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.initStyle(StageStyle.DECORATED);
+        stage.setTitle("Password Recovery");
+        stage.getIcons().add(new Image("/GUI/img/drake-dark.png"));
+        Scene scene = new Scene(root1);
+        stage.setScene(scene);
+        scene.getStylesheets().add("css/Style.css");
+        stage.show();
+
+    }
+
+    public void attemptSend(ActionEvent event) throws IOException
+    {
+        if (resetEmail.getText().isEmpty())
+        {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Email Required");
+            alert.setContentText("Please enter an Email.");
+            alert.showAndWait();
+        }
+        else if (Client.attemptReset(resetEmail.getText()))
+        {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Success");
+            alert.setHeaderText("Password Reset");
+            alert.setContentText("Email successfully sent. Please check your email for instructions on how to reset your password.");
+            alert.showAndWait();
+            Stage stage = (Stage) resetEmail.getScene().getWindow();
+            stage.hide();
+        }
+        else
+        {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Email Invalid");
+            alert.setContentText("Please enter a valid Email.");
+            alert.showAndWait();
+        }
+
     }
 
 }
