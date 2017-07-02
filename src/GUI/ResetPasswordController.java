@@ -49,7 +49,6 @@ public class ResetPasswordController {
                 scene.getStylesheets().add("css/Style.css");
                 stage.setScene(scene);
                 stage.show();
-                stage.show();
             }
             catch (IOException e) {
                 e.printStackTrace();

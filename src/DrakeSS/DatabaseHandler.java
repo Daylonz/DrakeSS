@@ -19,8 +19,9 @@ import java.util.Map;
 public class DatabaseHandler {
 
     public static Map<Integer,User> users = new HashMap<>();
-    public static Map<Integer,Schedule> schedule = new HashMap<>();
+    //public static Map<Integer,Meeting> meetings = new HashMap<>();
     private static String databasePath = getDatabasePath();
+    public static Schedule mainschedule = new Schedule();
 
     private static String getDatabasePath() {
         File resources = new File("database");
@@ -34,7 +35,8 @@ public class DatabaseHandler {
         System.out.println("Creating database");
         String dbString = "";
         dbString += "{\n";
-        dbString += "\t\"Schedule\" : {},\n";
+        dbString += "\t\"Schedule\" : {\n";
+        dbString += "},\n";
         dbString += "\t\"Users\" : {\n";
         dbString += "\t\t0 : " + new User(0, "DrakeSS@mail.com", 3).toJSON() + "\n";
         dbString += "\t}\n";
@@ -51,6 +53,7 @@ public class DatabaseHandler {
 
         JSONObject database = new JSONObject(readFile(databasePath, StandardCharsets.UTF_8));
         loadUsers(database.getJSONObject("Users"));
+        loadSchedule(database.getJSONObject("Schedule"));
 
     }
 
@@ -68,6 +71,20 @@ public class DatabaseHandler {
         String s = "{\n";
         int i;
 
+        s += "\t\"Schedule\" : {\n";
+
+        i=0;
+        if (mainschedule.meetings != null) {
+            for (Map.Entry<Integer, Meeting> entry : mainschedule.meetings.entrySet()) {
+                int id = entry.getKey();
+                Meeting m = entry.getValue();
+                s += "\t\t" + id + " : " + m.toJSON() + (i + 1 == mainschedule.meetings.size() ? "" : ",") + "\n";
+                i++;
+            }
+        }
+
+        s += "},\n";
+
         s += "\t\"Users\" : {\n";
 
         i=0;
@@ -84,12 +101,23 @@ public class DatabaseHandler {
         return s;
     }
 
-    private static void loadUsers(JSONObject refereeList) {
-        String[] refereeIds = JSONObject.getNames(refereeList);
-        for (int i=0; i < refereeIds.length; i ++) {
-            JSONObject refereeData = refereeList.getJSONObject(refereeIds[i]);
-            int refereeId = Integer.parseInt(refereeIds[i]);
-            users.put(refereeId, new User (refereeId, refereeData));
+    private static void loadUsers(JSONObject userList) {
+        String[] userIds = JSONObject.getNames(userList);
+        for (int i=0; i < userIds.length; i ++) {
+            JSONObject userData = userList.getJSONObject(userIds[i]);
+            int userId = Integer.parseInt(userIds[i]);
+            users.put(userId, new User (userId, userData));
+        }
+    }
+
+    private static void loadSchedule(JSONObject meetingList) {
+        String[] meetingIds = JSONObject.getNames(meetingList);
+        if (meetingIds != null) {
+            for (int i = 0; i < meetingIds.length; i++) {
+                JSONObject meetingData = meetingList.getJSONObject(meetingIds[i]);
+                int meetingId = Integer.parseInt(meetingIds[i]);
+                mainschedule.meetings.put(meetingId, new Meeting(meetingId, meetingData));
+            }
         }
     }
 

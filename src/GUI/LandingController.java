@@ -60,13 +60,16 @@ public class LandingController {
                     System.out.println(Client.userAccount.getEmail() + " successfully logged in with permission level of " + Client.permissionLevel);
                     Stage stage = (Stage) loginButton.getScene().getWindow();
                     stage.hide();
-                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("SuperUser.fxml"));
+                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Menu.fxml"));
                     Parent root1 = (Parent) fxmlLoader.load();
                     stage = new Stage();
                     stage.initModality(Modality.APPLICATION_MODAL);
                     stage.initStyle(StageStyle.DECORATED);
                     stage.setTitle("Main Menu");
-                    stage.setScene(new Scene(root1));
+                    stage.getIcons().add(new Image("/GUI/img/drake-dark.png"));
+                    Scene scene = new Scene(root1);
+                    scene.getStylesheets().add("css/Style.css");
+                    stage.setScene(scene);
                     stage.show();
                 } catch (Exception e) {}
             } else {
