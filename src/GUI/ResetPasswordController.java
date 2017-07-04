@@ -1,8 +1,11 @@
 package GUI;
 
 import DrakeSS.Client;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -16,8 +19,10 @@ import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.math.BigInteger;
+import java.net.URL;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ResourceBundle;
 
 public class ResetPasswordController {
 
@@ -25,6 +30,7 @@ public class ResetPasswordController {
     public PasswordField pass2;
     public Button changeButton;
     public Label invalid;
+
 
 
     public void attemptChange(ActionEvent event) throws NoSuchAlgorithmException
@@ -60,9 +66,9 @@ public class ResetPasswordController {
         }
     }
 
-    public boolean checkValid()
+    private boolean checkValid()
     {
-        return pass1.getText().equals(pass2.getText());
+        return (pass1.getText().equals(pass2.getText()) && (pass1.getLength() < 21));
     }
 
 }

@@ -49,7 +49,25 @@ public class Meeting {
 
     }
 
+    public int getStartHour()
+    {
+        return start.get(Calendar.HOUR);
+    }
 
+    public int getStartMinutes()
+    {
+        return start.get(Calendar.MINUTE);
+    }
+
+    public int getEndHour()
+    {
+        return end.get(Calendar.HOUR);
+    }
+
+    public int getEndMinutes()
+    {
+        return end.get(Calendar.MINUTE);
+    }
 
 
     private String startToJSON() {

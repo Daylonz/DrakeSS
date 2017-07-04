@@ -1,6 +1,8 @@
 {
 	"Schedule" : {
-		0 : {"startDate" : {"Year" : 2017, "Month" : 6, "Day" : 1,"Hour" : 8,"Minute" : 38,}, "endDate" : {"Year" : 2017, "Month" : 6, "Day" : 1,"Hour" : 8,"Minute" : 38,}, "Room" : 1, }
+		0 : {"startDate" : {"Year" : 2017, "Month" : 6, "Day" : 1,"Hour" : 8,"Minute" : 38,}, "endDate" : {"Year" : 2017, "Month" : 6, "Day" : 1,"Hour" : 8,"Minute" : 38,}, "Room" : 1, },
+		1 : {"startDate" : {"Year" : 2017, "Month" : 6, "Day" : 2,"Hour" : 0,"Minute" : 0,}, "endDate" : {"Year" : 2017, "Month" : 6, "Day" : 2,"Hour" : 0,"Minute" : 0,}, "Room" : 1, },
+		2 : {"startDate" : {"Year" : 2017, "Month" : 6, "Day" : 2,"Hour" : 0,"Minute" : 1,}, "endDate" : {"Year" : 2017, "Month" : 6, "Day" : 2,"Hour" : 0,"Minute" : 1,}, "Room" : 1, }
 },
 	"Users" : {
 		0 : {"Email" : "DrakeSS@mail.com", "Password" : "f3ede926587776a8cd79fb2afe4e07b4", "LoginCode" : null, "UserRights" : 3}
