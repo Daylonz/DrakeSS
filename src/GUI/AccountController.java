@@ -32,8 +32,15 @@ public class AccountController implements Initializable {
 
     public void initialize(URL url, ResourceBundle rb) {
 
+        if (Client.permissionLevel == 3)
+        {
+            manageUsers.setVisible(true);
+        }
+
         level.setFill(Color.GREEN);
         email.setFill(Color.GREEN);
+
+
 
         email.setText(Client.userAccount.getEmail());
         switch (Client.permissionLevel)

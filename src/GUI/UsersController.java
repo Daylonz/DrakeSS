@@ -28,15 +28,14 @@ import java.util.ResourceBundle;
 public class UsersController implements Initializable {
 
     public Hyperlink email;
-    public Button add;
+    public static Button add;
     public VBox vb;
 
     public void initialize(URL url, ResourceBundle rb)
     {
-
         try {
             vb.getChildren().clear();
-            if (DatabaseHandler.mainschedule.meetings == null)
+            if (DatabaseHandler.users == null)
             {
                 vb.getChildren().add(new Label("Something went wrong. No users found."));
             }
@@ -59,6 +58,7 @@ public class UsersController implements Initializable {
             e.printStackTrace();
         }
 
+
         email.setText(Client.userAccount.getEmail());
     }
 
@@ -80,6 +80,23 @@ public class UsersController implements Initializable {
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.initStyle(StageStyle.DECORATED);
         stage.setTitle("User Account - " + Client.userAccount.getEmail());
+        stage.getIcons().add(new Image("/GUI/img/drake-dark.png"));
+        Scene scene = new Scene(root1);
+        scene.getStylesheets().add("css/Style.css");
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public void addUser(ActionEvent event) throws IOException
+    {
+        Stage stage = (Stage) email.getScene().getWindow();
+        stage.hide();
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("AddUser.fxml"));
+        Parent root1 = (Parent) fxmlLoader.load();
+        stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.initStyle(StageStyle.DECORATED);
+        stage.setTitle("Create User");
         stage.getIcons().add(new Image("/GUI/img/drake-dark.png"));
         Scene scene = new Scene(root1);
         scene.getStylesheets().add("css/Style.css");

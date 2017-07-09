@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="407.0" prefWidth="608.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.UsersController">
+<AnchorPane prefHeight="407.0" prefWidth="608.0" xmlns="http://javafx.com/javafx/8.0.112-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.UsersController">
    <children>
       <Pane layoutX="-6.0" prefHeight="407.0" prefWidth="608.0">
          <children>
@@ -25,7 +25,7 @@
                <content>
                   <VBox fx:id="vb" alignment="TOP_CENTER" prefHeight="200.0" prefWidth="282.0" />
                </content></ScrollPane>
-            <Button fx:id="add" layoutX="255.0" layoutY="350.0" mnemonicParsing="false" onAction="#createMeeting" text="Add User" />
+            <Button fx:id="add" layoutX="255.0" layoutY="350.0" mnemonicParsing="false" onAction="#addUser" text="Add User" />
             <Label layoutX="142.0" layoutY="26.0" text="Admin User Management" textFill="WHITE">
                <font>
                   <Font size="28.0" />

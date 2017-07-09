@@ -2,9 +2,19 @@
 	"Schedule" : {
 		0 : {"startDate" : {"Year" : 2017, "Month" : 6, "Day" : 1,"Hour" : 8,"Minute" : 38,}, "endDate" : {"Year" : 2017, "Month" : 6, "Day" : 1,"Hour" : 8,"Minute" : 38,}, "Room" : 1, },
 		1 : {"startDate" : {"Year" : 2017, "Month" : 6, "Day" : 2,"Hour" : 0,"Minute" : 0,}, "endDate" : {"Year" : 2017, "Month" : 6, "Day" : 2,"Hour" : 0,"Minute" : 0,}, "Room" : 1, },
-		2 : {"startDate" : {"Year" : 2017, "Month" : 6, "Day" : 2,"Hour" : 0,"Minute" : 1,}, "endDate" : {"Year" : 2017, "Month" : 6, "Day" : 2,"Hour" : 0,"Minute" : 1,}, "Room" : 1, }
+		2 : {"startDate" : {"Year" : 2017, "Month" : 6, "Day" : 2,"Hour" : 0,"Minute" : 1,}, "endDate" : {"Year" : 2017, "Month" : 6, "Day" : 2,"Hour" : 0,"Minute" : 1,}, "Room" : 1, },
+		3 : {"startDate" : {"Year" : 2017, "Month" : 6, "Day" : 9,"Hour" : 0,"Minute" : 29,}, "endDate" : {"Year" : 2017, "Month" : 6, "Day" : 9,"Hour" : 0,"Minute" : 29,}, "Room" : 1, },
+		4 : {"startDate" : {"Year" : 2017, "Month" : 6, "Day" : 9,"Hour" : 0,"Minute" : 29,}, "endDate" : {"Year" : 2017, "Month" : 6, "Day" : 9,"Hour" : 0,"Minute" : 29,}, "Room" : 1, },
+		5 : {"startDate" : {"Year" : 2017, "Month" : 6, "Day" : 9,"Hour" : 0,"Minute" : 29,}, "endDate" : {"Year" : 2017, "Month" : 6, "Day" : 9,"Hour" : 0,"Minute" : 29,}, "Room" : 1, },
+		6 : {"startDate" : {"Year" : 2017, "Month" : 6, "Day" : 9,"Hour" : 0,"Minute" : 29,}, "endDate" : {"Year" : 2017, "Month" : 6, "Day" : 9,"Hour" : 0,"Minute" : 29,}, "Room" : 1, },
+		7 : {"startDate" : {"Year" : 2017, "Month" : 6, "Day" : 9,"Hour" : 0,"Minute" : 29,}, "endDate" : {"Year" : 2017, "Month" : 6, "Day" : 9,"Hour" : 0,"Minute" : 29,}, "Room" : 1, },
+		8 : {"startDate" : {"Year" : 2017, "Month" : 6, "Day" : 9,"Hour" : 0,"Minute" : 33,}, "endDate" : {"Year" : 2017, "Month" : 6, "Day" : 9,"Hour" : 0,"Minute" : 33,}, "Room" : 1, }
 },
 	"Users" : {
-		0 : {"Email" : "DrakeSS@mail.com", "Password" : "f3ede926587776a8cd79fb2afe4e07b4", "LoginCode" : null, "UserRights" : 3}
+		0 : {"Email" : "DrakeSS@mail.com", "Password" : "f3ede926587776a8cd79fb2afe4e07b4", "LoginCode" : null, "UserRights" : 3},
+		1 : {"Email" : "test", "Password" : null, "LoginCode" : {"Code":"f12cf3d7e4c2e208fe2f6ec17269ead8"}, "UserRights" : 3},
+		2 : {"Email" : "testing@mail.com", "Password" : null, "LoginCode" : {"Code":"aa92f606651735104fc01163e1675dc0"}, "UserRights" : 0},
+		3 : {"Email" : "testing2@mail.com", "Password" : null, "LoginCode" : {"Code":"7754747050d51e40650737204a3c02d5"}, "UserRights" : 0},
+		4 : {"Email" : "testing3@mail.com", "Password" : null, "LoginCode" : {"Code":"aaabbb611c7cc406e53ec8475f6af8d1"}, "UserRights" : 0}
 	}
 }

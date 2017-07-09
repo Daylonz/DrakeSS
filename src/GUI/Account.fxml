@@ -21,8 +21,8 @@
             <Text fill="WHITE" layoutX="200.0" layoutY="91.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Account Level:" />
             <Text fx:id="email" fill="WHITE" layoutX="238.0" layoutY="74.0" strokeType="OUTSIDE" strokeWidth="0.0" text="null" />
             <Text fx:id="level" fill="WHITE" layoutX="281.0" layoutY="91.0" strokeType="OUTSIDE" strokeWidth="0.0" text="null" />
-            <Button fx:id="manageUsers" layoutX="236.0" layoutY="151.0" mnemonicParsing="false" onAction="#openUsers" text="Manage Users (Admin)" />
             <Button fx:id="mySchedule" layoutX="239.0" layoutY="118.0" mnemonicParsing="false" onAction="#openMySchedule" text="Manage My Schedule" />
+            <Button fx:id="manageUsers" layoutX="236.0" layoutY="151.0" mnemonicParsing="false" onAction="#openUsers" text="Manage Users (Admin)" visible="false" />
          </children>
       </Pane>
    </children>
