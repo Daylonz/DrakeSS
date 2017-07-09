@@ -18,7 +18,6 @@ import javafx.stage.StageStyle;
 import javafx.util.Callback;
 import org.json.JSONObject;
 
-
 import java.io.IOException;
 import java.net.URL;
 import java.time.DayOfWeek;
@@ -26,11 +25,10 @@ import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.ResourceBundle;
 
-public class MenuController implements Initializable {
+public class UsersController implements Initializable {
 
     public Hyperlink email;
-    public DatePicker dp;
-    public Button create;
+    public Button add;
     public VBox vb;
 
     public void initialize(URL url, ResourceBundle rb)
@@ -40,13 +38,13 @@ public class MenuController implements Initializable {
             vb.getChildren().clear();
             if (DatabaseHandler.mainschedule.meetings == null)
             {
-                vb.getChildren().add(new Label("There are currently no meetings scheduled for this date."));
+                vb.getChildren().add(new Label("Something went wrong. No users found."));
             }
             else
             {
-                for (int i = 0; i < DatabaseHandler.mainschedule.meetings.size(); i++)
+                for (int i = 0; i < DatabaseHandler.users.size(); i++)
                 {
-                    Hyperlink h = new Hyperlink(DatabaseHandler.mainschedule.meetings.get(i).getStartHour() + ":" + DatabaseHandler.mainschedule.meetings.get(i).getStartMinutes() + " - " + DatabaseHandler.mainschedule.meetings.get(i).getEndHour() + ":" + DatabaseHandler.mainschedule.meetings.get(i).getEndMinutes());
+                    Hyperlink h = new Hyperlink(DatabaseHandler.users.get(i).getEmail() + " - ID: " + DatabaseHandler.users.get(i).getId());
                     h.setOnAction(new EventHandler<ActionEvent>() {
                                       @Override
                                       public void handle(ActionEvent e) {
@@ -61,30 +59,7 @@ public class MenuController implements Initializable {
             e.printStackTrace();
         }
 
-        Callback<DatePicker, DateCell> dayCellFactory = dp -> new DateCell() {
-            @Override
-            public void updateItem(LocalDate item, boolean empty) {
-                super.updateItem(item, empty);
-
-                if (item.isBefore(LocalDate.now()) || item.isAfter(LocalDate.now().plusMonths(10)) || item.getDayOfWeek() == DayOfWeek.SATURDAY || item.getDayOfWeek() == DayOfWeek.SUNDAY) {
-                    setStyle("-fx-background-color: #4D0000;");
-                    setDisable(true);
-                }
-            }
-        };
-
-        dp.setDayCellFactory(dayCellFactory);
         email.setText(Client.userAccount.getEmail());
-    }
-
-    public JSONObject importMeetings() throws IOException {
-        String message = DatabaseHandler.mainschedule.toJSON();
-        System.out.println(message);
-        if (message.equals("{}"))
-        {
-            return null;
-        }
-        return new JSONObject(message);
     }
 
     public void createMeeting(ActionEvent event) throws IOException
