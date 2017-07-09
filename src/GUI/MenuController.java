@@ -89,10 +89,19 @@ public class MenuController implements Initializable {
 
     public void createMeeting(ActionEvent event) throws IOException
     {
-        Calendar start = Calendar.getInstance();
-        Calendar end = Calendar.getInstance();
-        DatabaseHandler.mainschedule.addMeeting(new Meeting(DatabaseHandler.mainschedule.meetings.size(), start, end, 1));
-        DatabaseHandler.saveData();
+        Stage stage = (Stage) email.getScene().getWindow();
+        stage.hide();
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("CreateMeeting.fxml"));
+        Parent root1 = (Parent) fxmlLoader.load();
+        stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.initStyle(StageStyle.DECORATED);
+        stage.setTitle("Schedule Meeting");
+        stage.getIcons().add(new Image("/GUI/img/drake-dark.png"));
+        Scene scene = new Scene(root1);
+        scene.getStylesheets().add("css/Style.css");
+        stage.setScene(scene);
+        stage.show();
     }
 
     public void openAccount(ActionEvent event) throws IOException

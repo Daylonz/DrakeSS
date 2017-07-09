@@ -98,8 +98,7 @@ public class User {
         }
 
         public void sendPasswordReset() {
-            Random generator = new Random();
-            String code = generator.nextInt(1000000)+"";
+            String code = getSaltString();
             MessageDigest md = null;
             try {
                 md = MessageDigest.getInstance("MD5");
@@ -147,4 +146,17 @@ public class User {
 
             return s;
         }
+
+    protected String getSaltString() {
+        String SALTCHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+        StringBuilder salt = new StringBuilder();
+        Random rnd = new Random();
+        while (salt.length() < 10) { // length of the random string.
+            int index = (int) (rnd.nextFloat() * SALTCHARS.length());
+            salt.append(SALTCHARS.charAt(index));
+        }
+        String saltStr = salt.toString();
+        return saltStr;
+
+    }
 }

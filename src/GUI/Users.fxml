@@ -20,7 +20,7 @@
                   <Image url="@img/drake-dark.png" />
                </image>
             </ImageView>
-            <Hyperlink fx:id="email" layoutX="455.0" layoutY="3.0" onAction="#openAccount" text="example@gmail.com" textFill="#e8e8e8" />
+            <Hyperlink fx:id="email" layoutX="489.0" layoutY="3.0" onAction="#openAccount" text="example@gmail.com" textFill="#e8e8e8" />
             <ScrollPane layoutX="146.0" layoutY="104.0" prefHeight="200.0" prefWidth="298.0">
                <content>
                   <VBox fx:id="vb" alignment="TOP_CENTER" prefHeight="200.0" prefWidth="282.0" />

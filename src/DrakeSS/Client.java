@@ -4,6 +4,7 @@ import javafx.application.Application;
 import org.json.*;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.Map;
 
 /**
@@ -12,6 +13,7 @@ import java.util.Map;
 public class Client {
     public static int permissionLevel = 0;
     public static User userAccount = null;
+    public static ArrayList<String> usersToInvite = new ArrayList<String>();
 
     public static void main(String[] args) throws IOException, NoSuchAlgorithmException {
         DatabaseHandler.loadData();

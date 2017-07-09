@@ -27,14 +27,26 @@ public class AccountController implements Initializable {
     public Text email;
     public Text level;
     public Hyperlink back;
-    public Button mySchedule;
-    public Button manageUsers;
+    public Button manageSchedule, manageUsers, viewMeetings, manageEmployees;
 
     public void initialize(URL url, ResourceBundle rb) {
+
+        if (Client.permissionLevel > 0)
+        {
+            manageEmployees.setVisible(true);
+        }
+        else
+        {
+            manageEmployees.setVisible(false);
+        }
 
         if (Client.permissionLevel == 3)
         {
             manageUsers.setVisible(true);
+        }
+        else
+        {
+            manageUsers.setVisible(false);
         }
 
         level.setFill(Color.GREEN);
@@ -66,6 +78,41 @@ public class AccountController implements Initializable {
 
     }
 
+    public void openMeetings(ActionEvent event) throws IOException
+    {
+        Stage current = (Stage) email.getScene().getWindow();
+        current.hide();
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Meetings.fxml"));
+        Parent root1 = (Parent) fxmlLoader.load();
+        Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.initStyle(StageStyle.DECORATED);
+        stage.setTitle("My Meetings");
+        stage.getIcons().add(new Image("/GUI/img/drake-dark.png"));
+        Scene scene = new Scene(root1);
+        stage.setScene(scene);
+        scene.getStylesheets().add("css/Style.css");
+        stage.show();
+
+    }
+
+    public void openEmployees(ActionEvent event) throws IOException
+    {
+        Stage current = (Stage) email.getScene().getWindow();
+        current.hide();
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Employees.fxml"));
+        Parent root1 = (Parent) fxmlLoader.load();
+        Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.initStyle(StageStyle.DECORATED);
+        stage.setTitle("Employee Management");
+        stage.getIcons().add(new Image("/GUI/img/drake-dark.png"));
+        Scene scene = new Scene(root1);
+        stage.setScene(scene);
+        scene.getStylesheets().add("css/Style.css");
+        stage.show();
+
+    }
 
     public void openUsers(ActionEvent event) throws IOException
     {
@@ -85,16 +132,34 @@ public class AccountController implements Initializable {
 
     }
 
-    public void openMySchedule(ActionEvent event) throws IOException
+    public void openMain(ActionEvent event) throws IOException
+    {
+        Stage stage = (Stage) email.getScene().getWindow();
+        stage.hide();
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Menu.fxml"));
+        Parent root1 = (Parent) fxmlLoader.load();
+        stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.initStyle(StageStyle.DECORATED);
+        stage.setTitle("Main Menu");
+        stage.getIcons().add(new Image("/GUI/img/drake-dark.png"));
+        Scene scene = new Scene(root1);
+        scene.getStylesheets().add("css/Style.css");
+        stage.setScene(scene);
+        stage.show();
+
+    }
+
+    public void openSchedulePermissions(ActionEvent event) throws IOException
     {
         Stage current = (Stage) email.getScene().getWindow();
         current.hide();
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MySchedule.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("SchedulePermissions.fxml"));
         Parent root1 = (Parent) fxmlLoader.load();
         Stage stage = new Stage();
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.initStyle(StageStyle.DECORATED);
-        stage.setTitle("My Schedule");
+        stage.setTitle("My Schedule Permissions");
         stage.getIcons().add(new Image("/GUI/img/drake-dark.png"));
         Scene scene = new Scene(root1);
         stage.setScene(scene);
