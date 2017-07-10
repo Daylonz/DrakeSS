@@ -30,25 +30,29 @@ public class LandingController implements Initializable {
 
     public void initialize(URL url, ResourceBundle rb) {
 
-        loginUser.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(final ObservableValue<? extends String> ov, final String oldValue, final String newValue) {
-                if (loginUser.getText().length() > 30) {
-                    String s = loginUser.getText().substring(0, 30);
-                   loginUser.setText(s);
+        if (loginUser != null) {
+            loginUser.textProperty().addListener(new ChangeListener<String>() {
+                @Override
+                public void changed(final ObservableValue<? extends String> ov, final String oldValue, final String newValue) {
+                    if (loginUser.getText().length() > 30) {
+                        String s = loginUser.getText().substring(0, 30);
+                        loginUser.setText(s);
+                    }
                 }
-            }
-        });
+            });
+        }
 
-        loginPassword.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(final ObservableValue<? extends String> ov, final String oldValue, final String newValue) {
-                if (loginPassword.getText().length() > 20) {
-                    String s = loginPassword.getText().substring(0, 20);
-                    loginPassword.setText(s);
+        if (loginPassword != null) {
+            loginPassword.textProperty().addListener(new ChangeListener<String>() {
+                @Override
+                public void changed(final ObservableValue<? extends String> ov, final String oldValue, final String newValue) {
+                    if (loginPassword.getText().length() > 20) {
+                        String s = loginPassword.getText().substring(0, 20);
+                        loginPassword.setText(s);
+                    }
                 }
-            }
-        });
+            });
+        }
 
     }
 

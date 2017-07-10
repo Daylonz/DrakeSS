@@ -39,6 +39,7 @@ public class Client {
         if (loginAs.verifyLoginCode(pass)) {
             System.out.println("Correct login code");
             userAccount = loginAs;
+            permissionLevel = userAccount.userRights;
             return ("codesuccess");
         } else {
             System.out.println("No login code");
