@@ -80,6 +80,7 @@ public class AccountController implements Initializable {
 
     public void openMeetings(ActionEvent event) throws IOException
     {
+        Client.currentPersonal = Client.userAccount.getEmail();
         Stage current = (Stage) email.getScene().getWindow();
         current.hide();
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Meetings.fxml"));
@@ -87,7 +88,25 @@ public class AccountController implements Initializable {
         Stage stage = new Stage();
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.initStyle(StageStyle.DECORATED);
-        stage.setTitle("My Meetings");
+        stage.setTitle("Personal Schedule - " + Client.currentPersonal);
+        stage.getIcons().add(new Image("/GUI/img/drake-dark.png"));
+        Scene scene = new Scene(root1);
+        stage.setScene(scene);
+        scene.getStylesheets().add("css/Style.css");
+        stage.show();
+
+    }
+
+    public void openInvites(ActionEvent event) throws IOException
+    {
+        Stage current = (Stage) email.getScene().getWindow();
+        current.hide();
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Invitations.fxml"));
+        Parent root1 = (Parent) fxmlLoader.load();
+        Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.initStyle(StageStyle.DECORATED);
+        stage.setTitle("My Meeting Invitations");
         stage.getIcons().add(new Image("/GUI/img/drake-dark.png"));
         Scene scene = new Scene(root1);
         stage.setScene(scene);

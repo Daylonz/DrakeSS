@@ -5,6 +5,7 @@ import org.json.*;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Map;
 
 /**
@@ -14,6 +15,10 @@ public class Client {
     public static int permissionLevel = 0;
     public static User userAccount = null;
     public static ArrayList<String> usersToInvite = new ArrayList<String>();
+    public static Calendar selected;
+    public static boolean userRefresh = false;
+    public static String selectedStart, selectedEnd, selectedRoom, currentPersonal;
+    public static Meeting selectedmeeting;
 
     public static void main(String[] args) throws IOException, NoSuchAlgorithmException {
         DatabaseHandler.loadData();
@@ -56,7 +61,7 @@ public class Client {
         }
     }
 
-    private static User userFromEmail(String email) {
+    public static User userFromEmail(String email) {
         User u;
 
         for (Map.Entry<Integer, User> entry : DatabaseHandler.users.entrySet()) {

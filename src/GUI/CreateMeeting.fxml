@@ -20,28 +20,32 @@
                   <Image url="@img/drake-dark.png" />
                </image>
             </ImageView>
-            <DatePicker fx:id="dp" layoutX="20.0" layoutY="61.0" prefHeight="25.0" prefWidth="188.0" promptText="Select a date to view details" />
-            <ScrollPane layoutX="14.0" layoutY="104.0" prefHeight="200.0" prefWidth="213.0">
+            <DatePicker fx:id="dp" disable="true" editable="false" layoutX="20.0" layoutY="61.0" prefHeight="25.0" prefWidth="188.0" promptText="Select a date to view details" />
+            <ScrollPane fx:id="scroll" layoutX="14.0" layoutY="104.0" prefHeight="200.0" prefWidth="213.0">
                <content>
                   <VBox fx:id="vb" alignment="TOP_CENTER" prefHeight="200.0" prefWidth="197.0" />
                </content></ScrollPane>
-            <Button fx:id="create" layoutX="426.0" layoutY="345.0" mnemonicParsing="false" onAction="#scheduleMeeting" text="Schedule Meeting" />
-            <ComboBox fx:id="start" layoutX="35.0" layoutY="345.0" prefWidth="150.0" />
-            <ComboBox fx:id="end" layoutX="210.0" layoutY="345.0" prefWidth="150.0" />
-            <Label layoutX="83.0" layoutY="321.0" text="Start Time" />
-            <Label layoutX="260.0" layoutY="321.0" text="End Time" />
-            <ScrollPane layoutX="248.0" layoutY="104.0" prefHeight="200.0" prefWidth="174.0">
+            <Button fx:id="create" layoutX="458.0" layoutY="333.0" mnemonicParsing="false" onAction="#scheduleMeeting" text="Schedule Meeting" />
+            <ComboBox fx:id="startcb" layoutX="20.0" layoutY="333.0" onAction="#configureEnd" prefWidth="150.0" />
+            <ComboBox fx:id="endcb" layoutX="185.0" layoutY="333.0" onAction="#setRoom" prefWidth="150.0" visible="false" />
+            <Label fx:id="startLabel" layoutX="68.0" layoutY="311.0" text="Start Time" />
+            <Label fx:id="endLabel" layoutX="235.0" layoutY="313.0" text="End Time" visible="false" />
+            <ScrollPane fx:id="allscroll" layoutX="235.0" layoutY="104.0" prefHeight="200.0" prefWidth="174.0" visible="false">
                <content>
                   <VBox fx:id="all" prefHeight="214.0" prefWidth="158.0" />
                </content>
             </ScrollPane>
-            <ScrollPane layoutX="433.0" layoutY="104.0" prefHeight="200.0" prefWidth="174.0">
+            <ScrollPane fx:id="invitescroll" layoutX="433.0" layoutY="104.0" prefHeight="200.0" prefWidth="174.0" visible="false">
                <content>
                   <VBox fx:id="invite" prefHeight="218.0" prefWidth="158.0" />
                </content>
             </ScrollPane>
-            <Label layoutX="312.0" layoutY="77.0" text="All Users" />
-            <Label layoutX="476.0" layoutY="77.0" text="Users to Invite" />
+            <Label fx:id="allLabel" layoutX="299.0" layoutY="77.0" text="All Users" visible="false" />
+            <Label fx:id="inviteLabel" layoutX="476.0" layoutY="77.0" text="Users to Invite" visible="false" />
+            <Label fx:id="arrows" layoutX="413.0" layoutY="187.0" text="&gt;&gt;&#10;&lt;&lt;" visible="false" />
+            <ComboBox fx:id="roomcb" layoutX="351.0" layoutY="333.0" onAction="#setUsers" prefHeight="25.0" prefWidth="76.0" visible="false" />
+            <Label fx:id="roomLabel" layoutX="373.0" layoutY="313.0" text="Room" visible="false" />
+            <Button fx:id="backButton" layoutX="476.0" layoutY="14.0" mnemonicParsing="false" onAction="#goBack" prefHeight="25.0" prefWidth="111.0" text="Back To Schedule" />
          </children>
       </Pane>
    </children>

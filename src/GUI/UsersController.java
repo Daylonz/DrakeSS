@@ -47,7 +47,7 @@ public class UsersController implements Initializable {
                     h.setOnAction(new EventHandler<ActionEvent>() {
                                       @Override
                                       public void handle(ActionEvent e) {
-                                          System.out.println("Hyperlink clicked.");
+                                          System.out.println("TODO add remove user page");
                                       }
                                       });
                     vb.getChildren().add(h);
@@ -60,14 +60,6 @@ public class UsersController implements Initializable {
 
 
         email.setText(Client.userAccount.getEmail());
-    }
-
-    public void createMeeting(ActionEvent event) throws IOException
-    {
-        Calendar start = Calendar.getInstance();
-        Calendar end = Calendar.getInstance();
-        DatabaseHandler.mainschedule.addMeeting(new Meeting(DatabaseHandler.mainschedule.meetings.size(), start, end, 1));
-        DatabaseHandler.saveData();
     }
 
     public void openAccount(ActionEvent event) throws IOException
