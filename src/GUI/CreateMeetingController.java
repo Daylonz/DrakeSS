@@ -72,8 +72,8 @@ public class CreateMeetingController implements Initializable {
                 setEndTime();
             }
 
-            LocalDate date = Client.selected.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-            dp.setValue(date);
+            //dp.setValue(Client.selected.toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+            dp.setPromptText(Client.selected.get(Calendar.MONTH) + "/" + Client.selected.get(Calendar.DAY_OF_MONTH) + "/" + Client.selected.get(Calendar.YEAR));
 
             vb.getChildren().clear();
             Calendar check = Calendar.getInstance();
@@ -269,8 +269,17 @@ public class CreateMeetingController implements Initializable {
             Calendar start = Calendar.getInstance();
             Calendar end = Calendar.getInstance();
             int room = getRoom();
+
             start.set(Client.selected.get(Calendar.YEAR), Client.selected.get(Calendar.MONTH), Client.selected.get(Calendar.DAY_OF_MONTH), starthourselected, startminselected);
+            if (starthourselected == 12 || starthourselected < 8)
+            {
+                start.set(Calendar.AM_PM, Calendar.PM);
+            }
             end.set(Client.selected.get(Calendar.YEAR), Client.selected.get(Calendar.MONTH), Client.selected.get(Calendar.DAY_OF_MONTH), endhourselected, endminselected);
+            if (endhourselected == 12 || endhourselected < 8)
+            {
+                end.set(Calendar.AM_PM, Calendar.PM);
+            }
 
             Calendar checkStart = Calendar.getInstance();
             Calendar checkEnd = Calendar.getInstance();
