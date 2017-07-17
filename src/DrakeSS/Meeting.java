@@ -77,6 +77,11 @@ public class Meeting {
         return start;
     }
 
+    public Calendar getEnd()
+    {
+        return end;
+    }
+
     public int getRoom()
     {
         return room;

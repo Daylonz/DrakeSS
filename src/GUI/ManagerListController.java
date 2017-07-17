@@ -49,7 +49,7 @@ public class ManagerListController implements Initializable {
                                     stage = new Stage();
                                     stage.initModality(Modality.APPLICATION_MODAL);
                                     stage.initStyle(StageStyle.DECORATED);
-                                    stage.setTitle("Manage Employee");
+                                    stage.setTitle("Manager Configuration");
                                     stage.getIcons().add(new Image("/GUI/img/drake-dark.png"));
                                     Scene scene = new Scene(root1);
                                     stage.setScene(scene);
@@ -77,18 +77,18 @@ public class ManagerListController implements Initializable {
 
     public void goBack(ActionEvent event) throws IOException
     {
-        Stage stage = (Stage) vb.getScene().getWindow();
-        stage.hide();
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Account.fxml"));
+        Stage current = (Stage)vb.getScene().getWindow();
+        current.hide();
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Users.fxml"));
         Parent root1 = (Parent) fxmlLoader.load();
-        stage = new Stage();
+        Stage stage = new Stage();
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.initStyle(StageStyle.DECORATED);
-        stage.setTitle("User Account - " + Client.userAccount.getEmail());
+        stage.setTitle("Admin User Management");
         stage.getIcons().add(new Image("/GUI/img/drake-dark.png"));
         Scene scene = new Scene(root1);
-        scene.getStylesheets().add("css/Style.css");
         stage.setScene(scene);
+        scene.getStylesheets().add("css/Style.css");
         stage.show();
     }
 

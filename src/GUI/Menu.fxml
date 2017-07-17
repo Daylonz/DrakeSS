@@ -19,7 +19,7 @@
                   <Image url="@img/drake-dark.png" />
                </image>
             </ImageView>
-            <Hyperlink fx:id="email" alignment="CENTER_RIGHT" layoutX="342.0" layoutY="3.0" onAction="#openAccount" prefHeight="23.0" prefWidth="262.0" text="example@gmail.com" textAlignment="RIGHT" textFill="#e8e8e8" textOverrun="CLIP" underline="true" />
+            <Hyperlink fx:id="email" alignment="CENTER_RIGHT" layoutX="342.0" layoutY="3.0" onAction="#openAccount" prefHeight="23.0" prefWidth="262.0" text="example@gmail.com" textAlignment="RIGHT" textFill="#e8e8e8" textOverrun="CLIP" />
             <DatePicker fx:id="dp" layoutX="210.0" layoutY="52.0" onAction="#updateMeetings" prefHeight="25.0" prefWidth="188.0" promptText="Select a date to view details" />
             <ScrollPane fx:id="scroll" layoutX="146.0" layoutY="104.0" prefHeight="200.0" prefWidth="298.0" visible="false">
                <content>

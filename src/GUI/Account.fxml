@@ -16,7 +16,7 @@
                   <Font size="28.0" />
                </font>
             </Text>
-            <Hyperlink fx:id="back" layoutX="498.0" onAction="#openMain" text="Back to main menu" underline="true" />
+            <Hyperlink fx:id="signout" layoutX="553.0" layoutY="3.0" onAction="#signOut" text="Sign Out" />
             <Text fill="WHITE" layoutX="200.0" layoutY="74.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email:" />
             <Text fill="WHITE" layoutX="200.0" layoutY="91.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Account Level:" />
             <Text fx:id="email" fill="WHITE" layoutX="238.0" layoutY="74.0" strokeType="OUTSIDE" strokeWidth="0.0" text="null" />
@@ -26,6 +26,7 @@
             <Button fx:id="otherSchedules" layoutX="238.0" layoutY="212.0" mnemonicParsing="false" onAction="#viewOther" text="View Other Schedules" />
             <Button fx:id="manageUsers" layoutX="236.0" layoutY="246.0" mnemonicParsing="false" onAction="#openUsers" text="Manage Users (Admin)" visible="false" />
             <Button fx:id="manageInvites" layoutX="217.0" layoutY="144.0" mnemonicParsing="false" onAction="#openInvites" text="Manage Meeting Invitations" />
+            <Button fx:id="back" layoutX="257.0" layoutY="342.0" mnemonicParsing="false" onAction="#openMain" text="Main Schedule" />
          </children>
       </Pane>
    </children>

@@ -126,7 +126,7 @@ public class DatabaseHandler {
             }
             JSONArray b = userData.getJSONArray("Employees");
             User u = Client.userFromEmail(userData.getString("Email"));
-            for (int j = 0; j < a.length(); j++)
+            for (int j = 0; j < b.length(); j++)
             {
                 u.getEmployees().put(u.getEmployees().size(), Client.userFromEmail(b.getString(j)));
             }

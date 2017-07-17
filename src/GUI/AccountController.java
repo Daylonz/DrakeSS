@@ -22,7 +22,7 @@ public class AccountController implements Initializable {
 
     public Text email;
     public Text level;
-    public Hyperlink back;
+    public Button back;
     public Button manageSchedule, manageUsers, viewMeetings, manageEmployees;
 
     public void initialize(URL url, ResourceBundle rb) {
@@ -47,19 +47,23 @@ public class AccountController implements Initializable {
             case 0:
             {
                 level.setText("Employee");
+                break;
             }
             case 1:
             {
                 level.setText("Manager");
+                break;
             }
             case 2:
             {
                 level.setText("Administrative Assistant");
+                break;
             }
 
             case 3:
             {
                 level.setText("Administrator");
+                break;
             }
         }
     }
@@ -144,6 +148,25 @@ public class AccountController implements Initializable {
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.initStyle(StageStyle.DECORATED);
         stage.setTitle("Main Menu");
+        stage.getIcons().add(new Image("/GUI/img/drake-dark.png"));
+        Scene scene = new Scene(root1);
+        scene.getStylesheets().add("css/Style.css");
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public void signOut(ActionEvent event) throws IOException
+    {
+        Client.userAccount = null;
+        Client.permissionLevel = 0;
+        Stage stage = (Stage) email.getScene().getWindow();
+        stage.hide();
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Landing.fxml"));
+        Parent root1 = (Parent) fxmlLoader.load();
+        stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.initStyle(StageStyle.DECORATED);
+        stage.setTitle("DrakeSS - Login");
         stage.getIcons().add(new Image("/GUI/img/drake-dark.png"));
         Scene scene = new Scene(root1);
         scene.getStylesheets().add("css/Style.css");

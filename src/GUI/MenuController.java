@@ -108,7 +108,7 @@ public class MenuController implements Initializable {
                 if (check.get(Calendar.YEAR) == selection.get(Calendar.YEAR) && check.get(Calendar.MONTH) == (selection.get(Calendar.MONTH)) && check.get(Calendar.DAY_OF_MONTH) == selection.get(Calendar.DAY_OF_MONTH))
                 {
                     Meeting current = DatabaseHandler.mainschedule.meetings.get(i);
-                    Hyperlink h = new Hyperlink(DatabaseHandler.mainschedule.meetings.get(i).getStartHour() + ":" + DatabaseHandler.mainschedule.meetings.get(i).getStartMinutes() + " - " + DatabaseHandler.mainschedule.meetings.get(i).getEndHour() + ":" + DatabaseHandler.mainschedule.meetings.get(i).getEndMinutes() + " - Room " + DatabaseHandler.mainschedule.meetings.get(i).getRoom());
+                    Hyperlink h = new Hyperlink(DatabaseHandler.mainschedule.meetings.get(i).getStartHour() + ":" + DatabaseHandler.mainschedule.meetings.get(i).getStartMinutes() + " - " + DatabaseHandler.mainschedule.meetings.get(i).getEndHour() + ":" + DatabaseHandler.mainschedule.meetings.get(i).getEndMinutes() + " - Room C" + DatabaseHandler.mainschedule.meetings.get(i).getRoom());
                     h.setOnAction(new EventHandler<ActionEvent>() {
                         @Override
                         public void handle(ActionEvent e){

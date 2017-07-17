@@ -23,7 +23,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class OtherScheduleController implements Initializable {
+public class OtherSchedulesController implements Initializable {
 
     public Button back;
     public VBox vb;
@@ -35,9 +35,8 @@ public class OtherScheduleController implements Initializable {
     {
         vb.getChildren().clear();
         for (i = 0; i < DatabaseHandler.users.size(); i++) {
-            if (Client.permissionLevel == 0)
-            {
-                if (DatabaseHandler.users.get(i).getAllowedUsers().containsValue(Client.userAccount)) {
+            if (DatabaseHandler.users.get(i) != Client.userAccount) {
+                if (DatabaseHandler.users.get(i).getAllowedUsers().containsValue(Client.userAccount) || Client.userAccount.getEmployees().containsValue(DatabaseHandler.users.get(i)) || Client.userAccount.getPermissionLevel() > 1) {
                     User current = DatabaseHandler.users.get(i);
                     Hyperlink h = new Hyperlink(DatabaseHandler.users.get(i).getEmail());
                     h.setOnAction(new EventHandler<ActionEvent>() {
@@ -65,14 +64,6 @@ public class OtherScheduleController implements Initializable {
                     });
                     vb.getChildren().add(h);
                 }
-            }
-            else if (Client.permissionLevel == 1)
-            {
-
-            }
-            else if (Client.permissionLevel > 1)
-            {
-
             }
         }
         if (vb.getChildren().isEmpty())

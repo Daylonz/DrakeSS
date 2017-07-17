@@ -40,9 +40,16 @@ public class CreateMeetingController implements Initializable {
     public Label allLabel, inviteLabel, endLabel, arrows, roomLabel;
     int i = 0;
     public int starthourselected, startminselected, endhourselected, endminselected;
+    boolean overlap = false;
 
     public void initialize(URL url, ResourceBundle rb)
     {
+        Calendar startA = Calendar.getInstance();
+        Calendar endA = Calendar.getInstance();
+        Calendar startB = Calendar.getInstance();
+        Calendar endB = Calendar.getInstance();
+
+
         try {
             if (Client.userRefresh)
             {
@@ -76,11 +83,28 @@ public class CreateMeetingController implements Initializable {
                 check.set(DatabaseHandler.mainschedule.meetings.get(i).getStart().get(Calendar.YEAR), DatabaseHandler.mainschedule.meetings.get(i).getStart().get(Calendar.MONTH), DatabaseHandler.mainschedule.meetings.get(i).getStart().get(Calendar.DAY_OF_MONTH));
 
                 if (check.get(Calendar.YEAR) == Client.selected.get(Calendar.YEAR) && check.get(Calendar.MONTH) == (Client.selected.get(Calendar.MONTH)) && check.get(Calendar.DAY_OF_MONTH) == Client.selected.get(Calendar.DAY_OF_MONTH)) {
-                    Hyperlink h = new Hyperlink(DatabaseHandler.mainschedule.meetings.get(i).getStartHour() + ":" + DatabaseHandler.mainschedule.meetings.get(i).getStartMinutes() + " - " + DatabaseHandler.mainschedule.meetings.get(i).getEndHour() + ":" + DatabaseHandler.mainschedule.meetings.get(i).getEndMinutes() + " - Room " + DatabaseHandler.mainschedule.meetings.get(i).getRoom());
+                    Meeting current = DatabaseHandler.mainschedule.meetings.get(i);
+                    Hyperlink h = new Hyperlink(DatabaseHandler.mainschedule.meetings.get(i).getStartHour() + ":" + DatabaseHandler.mainschedule.meetings.get(i).getStartMinutes() + " - " + DatabaseHandler.mainschedule.meetings.get(i).getEndHour() + ":" + DatabaseHandler.mainschedule.meetings.get(i).getEndMinutes() + " - Room C" + DatabaseHandler.mainschedule.meetings.get(i).getRoom());
                     h.setOnAction(new EventHandler<ActionEvent>() {
                         @Override
                         public void handle(ActionEvent e) {
-                            System.out.println("Hyperlink clicked.");
+                            Client.selectedmeeting = current;
+                            try {
+                                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("DetailMeeting.fxml"));
+                                Parent root1 = (Parent) fxmlLoader.load();
+                                Stage stage = new Stage();
+                                stage.initModality(Modality.APPLICATION_MODAL);
+                                stage.initStyle(StageStyle.DECORATED);
+                                stage.setTitle("Meeting Details");
+                                stage.getIcons().add(new Image("/GUI/img/drake-dark.png"));
+                                Scene scene = new Scene(root1);
+                                stage.setScene(scene);
+                                scene.getStylesheets().add("css/Style.css");
+                                stage.show();
+                            } catch (Exception o)
+                            {
+                                o.printStackTrace();
+                            }
                         }
                     });
                     vb.getChildren().add(h);
@@ -248,30 +272,67 @@ public class CreateMeetingController implements Initializable {
             start.set(Client.selected.get(Calendar.YEAR), Client.selected.get(Calendar.MONTH), Client.selected.get(Calendar.DAY_OF_MONTH), starthourselected, startminselected);
             end.set(Client.selected.get(Calendar.YEAR), Client.selected.get(Calendar.MONTH), Client.selected.get(Calendar.DAY_OF_MONTH), endhourselected, endminselected);
 
-            DatabaseHandler.mainschedule.addMeeting(new Meeting(DatabaseHandler.mainschedule.meetings.size(), start, end, room, Client.userAccount, getPending()));
-            DatabaseHandler.saveData();
+            Calendar checkStart = Calendar.getInstance();
+            Calendar checkEnd = Calendar.getInstance();
+            for (int i = 0; i < DatabaseHandler.mainschedule.meetings.size(); i++)
+            {
+                checkStart.set(DatabaseHandler.mainschedule.meetings.get(i).getStart().get(Calendar.YEAR), DatabaseHandler.mainschedule.meetings.get(i).getStart().get(Calendar.MONTH), DatabaseHandler.mainschedule.meetings.get(i).getStart().get(Calendar.DAY_OF_MONTH), DatabaseHandler.mainschedule.meetings.get(i).getStart().get(Calendar.HOUR), DatabaseHandler.mainschedule.meetings.get(i).getStart().get(Calendar.MINUTE));
+                checkEnd.set(DatabaseHandler.mainschedule.meetings.get(i).getEnd().get(Calendar.YEAR), DatabaseHandler.mainschedule.meetings.get(i).getEnd().get(Calendar.MONTH), DatabaseHandler.mainschedule.meetings.get(i).getEnd().get(Calendar.DAY_OF_MONTH), DatabaseHandler.mainschedule.meetings.get(i).getEnd().get(Calendar.HOUR), DatabaseHandler.mainschedule.meetings.get(i).getEnd().get(Calendar.MINUTE));
+                if (checkStart.get(Calendar.YEAR) == Client.selected.get(Calendar.YEAR) && checkStart.get(Calendar.MONTH) == (Client.selected.get(Calendar.MONTH)) && checkStart.get(Calendar.DAY_OF_MONTH) == Client.selected.get(Calendar.DAY_OF_MONTH))
+                {
+                    if (meetingOverlap(checkStart, checkEnd, start, end, DatabaseHandler.mainschedule.meetings.get(i).getRoom(), room))
+                    {
+                        overlap = true;
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setTitle("Error");
+                        alert.setHeaderText("Meeting Overlap Detected");
+                        alert.setContentText("Please choose a date and room that does not overlap with the current schedule!");
+                        alert.showAndWait();
 
-            Client.usersToInvite.clear();
+                        Stage stage = (Stage) vb.getScene().getWindow();
+                        stage.hide();
+                        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("CreateMeeting.fxml"));
+                        Parent root1 = (Parent) fxmlLoader.load();
+                        stage = new Stage();
+                        stage.initModality(Modality.APPLICATION_MODAL);
+                        stage.initStyle(StageStyle.DECORATED);
+                        stage.setTitle("Schedule Meeting");
+                        stage.getIcons().add(new Image("/GUI/img/drake-dark.png"));
+                        Scene scene = new Scene(root1);
+                        scene.getStylesheets().add("css/Style.css");
+                        stage.setScene(scene);
+                        stage.show();
+                    }
+                }
+            }
 
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Success");
-            alert.setHeaderText("Success!");
-            alert.setContentText("Your meeting has been successfully scheduled. Returning to main schedule.");
-            alert.showAndWait();
+            if (!overlap)
+            {
+                DatabaseHandler.mainschedule.addMeeting(new Meeting(DatabaseHandler.mainschedule.meetings.size(), start, end, room, Client.userAccount, getPending()));
+                DatabaseHandler.saveData();
 
-            Stage stage = (Stage) vb.getScene().getWindow();
-            stage.hide();
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Menu.fxml"));
-            Parent root1 = (Parent) fxmlLoader.load();
-            stage = new Stage();
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.initStyle(StageStyle.DECORATED);
-            stage.setTitle("Main Menu");
-            stage.getIcons().add(new Image("/GUI/img/drake-dark.png"));
-            Scene scene = new Scene(root1);
-            scene.getStylesheets().add("css/Style.css");
-            stage.setScene(scene);
-            stage.show();
+                Client.usersToInvite.clear();
+
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Success");
+                alert.setHeaderText("Success!");
+                alert.setContentText("Your meeting has been successfully scheduled. Returning to main schedule.");
+                alert.showAndWait();
+
+                Stage stage = (Stage) vb.getScene().getWindow();
+                stage.hide();
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Menu.fxml"));
+                Parent root1 = (Parent) fxmlLoader.load();
+                stage = new Stage();
+                stage.initModality(Modality.APPLICATION_MODAL);
+                stage.initStyle(StageStyle.DECORATED);
+                stage.setTitle("Main Menu");
+                stage.getIcons().add(new Image("/GUI/img/drake-dark.png"));
+                Scene scene = new Scene(root1);
+                scene.getStylesheets().add("css/Style.css");
+                stage.setScene(scene);
+                stage.show();
+            }
         }
     }
 
@@ -823,6 +884,11 @@ public class CreateMeetingController implements Initializable {
                 endminselected = 0;
                 break;
         }
+    }
+
+    public boolean meetingOverlap(Calendar startA, Calendar endA, Calendar startB, Calendar endB, int roomA, int roomB)
+    {
+        return (startA.before(endB) && startB.before(endA) && roomA == roomB);
     }
 
 
