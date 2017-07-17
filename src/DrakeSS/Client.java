@@ -19,6 +19,7 @@ public class Client {
     public static boolean userRefresh = false;
     public static String selectedStart, selectedEnd, selectedRoom, currentPersonal;
     public static Meeting selectedmeeting;
+    public static User selecteduser;
 
     public static void main(String[] args) throws IOException, NoSuchAlgorithmException {
         DatabaseHandler.loadData();

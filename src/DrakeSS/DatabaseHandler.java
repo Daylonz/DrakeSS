@@ -1,5 +1,6 @@
 package DrakeSS;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.File;
@@ -53,6 +54,7 @@ public class DatabaseHandler {
 
         JSONObject database = new JSONObject(readFile(databasePath, StandardCharsets.UTF_8));
         loadUsers(database.getJSONObject("Users"));
+        loadUserSpecifics(database.getJSONObject("Users"));
         loadSchedule(database.getJSONObject("Schedule"));
 
     }
@@ -107,6 +109,28 @@ public class DatabaseHandler {
             JSONObject userData = userList.getJSONObject(userIds[i]);
             int userId = Integer.parseInt(userIds[i]);
             users.put(userId, new User (userId, userData));
+        }
+    }
+
+    public static void loadUserSpecifics(JSONObject userList)
+    {
+        String[] userIds = JSONObject.getNames(userList);
+        for (int i=0; i < userIds.length; i ++)
+        {
+            JSONObject userData = userList.getJSONObject(userIds[i]);
+            JSONArray a = userData.getJSONArray("allowedUsers");
+            User user = Client.userFromEmail(userData.getString("Email"));
+            for (int j = 0; j < a.length(); j++)
+            {
+                user.getAllowedUsers().put(user.getAllowedUsers().size(), Client.userFromEmail(a.getString(j)));
+            }
+            JSONArray b = userData.getJSONArray("Employees");
+            User u = Client.userFromEmail(userData.getString("Email"));
+            for (int j = 0; j < a.length(); j++)
+            {
+                u.getEmployees().put(u.getEmployees().size(), Client.userFromEmail(b.getString(j)));
+            }
+
         }
     }
 

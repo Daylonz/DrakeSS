@@ -58,12 +58,15 @@ public class AddUserController implements Initializable {
                 switch (cb.getValue()) {
                     case "Manager": {
                         r = 1;
+                        break;
                     }
                     case "Administrative Assistant": {
                         r = 2;
+                        break;
                     }
                     case "Administrator": {
                         r = 3;
+                        break;
                     }
                 }
             }

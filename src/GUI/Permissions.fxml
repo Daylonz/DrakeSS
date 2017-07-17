@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="407.0" prefWidth="608.0" xmlns="http://javafx.com/javafx/8.0.112-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.UsersController">
+<AnchorPane prefHeight="407.0" prefWidth="608.0" xmlns="http://javafx.com/javafx/8.0.112-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.PermissionsController">
    <children>
       <Pane layoutX="-6.0" prefHeight="407.0" prefWidth="608.0">
          <children>
@@ -19,18 +19,16 @@
                   <Image url="@img/drake-dark.png" />
                </image>
             </ImageView>
-            <ScrollPane layoutX="146.0" layoutY="104.0" prefHeight="200.0" prefWidth="298.0">
+            <ScrollPane fx:id="scroll" layoutX="146.0" layoutY="104.0" prefHeight="200.0" prefWidth="298.0">
                <content>
                   <VBox fx:id="vb" alignment="TOP_CENTER" prefHeight="200.0" prefWidth="282.0" />
                </content></ScrollPane>
-            <Button fx:id="add" layoutX="177.0" layoutY="319.0" mnemonicParsing="false" onAction="#addUser" text="Add User" />
-            <Label layoutX="142.0" layoutY="26.0" text="Admin User Management" textFill="WHITE">
+            <Button fx:id="back" layoutX="217.0" layoutY="331.0" mnemonicParsing="false" onAction="#goBack" text="Back To Account Overview" />
+            <Label fx:id="title" alignment="CENTER" contentDisplay="CENTER" layoutX="52.0" layoutY="14.0" prefHeight="27.0" prefWidth="497.0" text="Schedule Permissions" textFill="WHITE">
                <font>
-                  <Font size="28.0" />
-               </font>
-            </Label>
-            <Button fx:id="configure" layoutX="286.0" layoutY="319.0" mnemonicParsing="false" onAction="#configureManagers" text="Configure Managers" />
-            <Button fx:id="back" layoutX="542.0" layoutY="368.0" mnemonicParsing="false" onAction="#goBack" text="Go Back" />
+                  <Font size="18.0" />
+               </font></Label>
+            <Label alignment="CENTER" layoutX="146.0" layoutY="43.0" prefHeight="55.0" prefWidth="298.0" text="Below is a listing of every user. Click a user to view details and allow or deny them to view your schedule." textAlignment="CENTER" textFill="WHITE" wrapText="true" />
          </children>
       </Pane>
    </children>

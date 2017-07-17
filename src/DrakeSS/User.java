@@ -1,29 +1,34 @@
 package DrakeSS;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 /**
  * Created by Daylon on 6/21/2017.
  */
 public class User {
-
         int id;
         String email;
         int userRights;
         String password = null;
         JSONObject loginCode = null;
-        Schedule s;
+        Map<Integer,User> allowedUsers;
+        Map<Integer,User> employees;
 
         public User(int id, String email, int rights) {
             this.id = id;
             this.email = email;
             this.userRights = rights;
+            this.allowedUsers = new HashMap<Integer, User>();
+            this.employees = new HashMap<Integer, User>();
             sendPasswordReset();
         }
 
@@ -42,7 +47,37 @@ public class User {
             this.userRights = data.getInt("UserRights");
             this.password = password;
             this.loginCode = loginCode;
+            this.allowedUsers = new HashMap<Integer, User>();
+            this.employees = new HashMap<Integer, User>();
         }
+
+
+
+    private JSONArray allowedToJSON() {
+        JSONArray result = new JSONArray();
+        for (int i = 0; i < allowedUsers.size(); i++)
+        {
+            if (allowedUsers.get(i) != null)
+            {
+                result.put(allowedUsers.get(i).getEmail());
+            }
+        }
+
+        return result;
+    }
+
+    private JSONArray employeesToJSON() {
+        JSONArray result = new JSONArray();
+        for (int i = 0; i < employees.size(); i++)
+        {
+            if (employees.get(i) != null)
+            {
+                result.put(employees.get(i).getEmail());
+            }
+        }
+
+        return result;
+    }
 
         public void clearLoginCode() {
             this.loginCode = null;
@@ -88,6 +123,16 @@ public class User {
             return this.email.toLowerCase().equals(email.toLowerCase());
         }
 
+    public Map<Integer, User> getAllowedUsers()
+    {
+        return allowedUsers;
+    }
+
+    public Map<Integer, User> getEmployees()
+    {
+        return employees;
+    }
+
         private String getPasswordResetMessage(String code) {
             String s = (password == null ? "Welcome aboard DrakeSS! Your account has been created and is waiting to be set up!" : "Thank you for using the DrakeSS password reset service.")
                     + "\n\nYour temporary password is: " + code + "\n\nPlease log in to "
@@ -120,6 +165,11 @@ public class User {
             }
         }
 
+        public int getPermissionLevel()
+        {
+            return userRights;
+        }
+
         public String getPasswordJSON() {
             String s = "";
 
@@ -141,9 +191,10 @@ public class User {
         public String toJSON() {
             String s = "{\"Email\" : \"" + email + "\", \"Password\" : " + getPasswordJSON() +", "
                     + "\"LoginCode\" : " + getLoginCodeJSON() + ", "
-                    + "\"UserRights\" : " + userRights
+                    + "\"UserRights\" : " + userRights + ", "
+                    + "\"allowedUsers\" : " + allowedToJSON() + ", "
+                    + "\"Employees\" : " + employeesToJSON()
                     + "}";
-
             return s;
         }
 

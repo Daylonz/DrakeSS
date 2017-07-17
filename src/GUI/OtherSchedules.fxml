@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="407.0" prefWidth="608.0" xmlns="http://javafx.com/javafx/8.0.112-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.OtherScheduleController">
+   <children>
+      <Pane layoutX="-6.0" prefHeight="407.0" prefWidth="608.0">
+         <children>
+            <ImageView fitHeight="407.0" fitWidth="348.0" layoutX="127.0" opacity="0.15" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@img/drake-dark.png" />
+               </image>
+            </ImageView>
+            <ScrollPane fx:id="scroll" layoutX="124.0" layoutY="104.0" prefHeight="200.0" prefWidth="361.0">
+               <content>
+                  <VBox fx:id="vb" alignment="TOP_CENTER" prefHeight="200.0" prefWidth="346.0" />
+               </content></ScrollPane>
+            <Button fx:id="back" layoutX="217.0" layoutY="331.0" mnemonicParsing="false" onAction="#goBack" text="Back To Account Overview" />
+            <Label fx:id="title" alignment="CENTER" contentDisplay="CENTER" layoutX="52.0" layoutY="14.0" prefHeight="27.0" prefWidth="497.0" text="Other User's Schedules" textFill="WHITE">
+               <font>
+                  <Font size="18.0" />
+               </font></Label>
+            <Label alignment="CENTER" layoutX="100.0" layoutY="41.0" prefHeight="55.0" prefWidth="391.0" text="Below is a listing of every user's schedule that you are allowed to view. Click a user to view their schedule. If you don't see the user you are looking for, please contact them and telll them to allow you." textAlignment="CENTER" textFill="WHITE" wrapText="true" />
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

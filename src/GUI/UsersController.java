@@ -27,7 +27,6 @@ import java.util.ResourceBundle;
 
 public class UsersController implements Initializable {
 
-    public Hyperlink email;
     public static Button add;
     public VBox vb;
 
@@ -57,14 +56,11 @@ public class UsersController implements Initializable {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-
-        email.setText(Client.userAccount.getEmail());
     }
 
-    public void openAccount(ActionEvent event) throws IOException
+    public void goBack(ActionEvent event) throws IOException
     {
-        Stage stage = (Stage) email.getScene().getWindow();
+        Stage stage = (Stage) vb.getScene().getWindow();
         stage.hide();
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Account.fxml"));
         Parent root1 = (Parent) fxmlLoader.load();
@@ -79,9 +75,26 @@ public class UsersController implements Initializable {
         stage.show();
     }
 
+    public void configureManagers(ActionEvent event) throws IOException
+    {
+        Stage stage = (Stage) vb.getScene().getWindow();
+        stage.hide();
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ManagerList.fxml"));
+        Parent root1 = (Parent) fxmlLoader.load();
+        stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.initStyle(StageStyle.DECORATED);
+        stage.setTitle("Manager List");
+        stage.getIcons().add(new Image("/GUI/img/drake-dark.png"));
+        Scene scene = new Scene(root1);
+        scene.getStylesheets().add("css/Style.css");
+        stage.setScene(scene);
+        stage.show();
+    }
+
     public void addUser(ActionEvent event) throws IOException
     {
-        Stage stage = (Stage) email.getScene().getWindow();
+        Stage stage = (Stage) vb.getScene().getWindow();
         stage.hide();
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("AddUser.fxml"));
         Parent root1 = (Parent) fxmlLoader.load();
