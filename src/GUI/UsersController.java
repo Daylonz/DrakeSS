@@ -2,7 +2,7 @@ package GUI;
 
 import DrakeSS.Client;
 import DrakeSS.DatabaseHandler;
-import DrakeSS.Meeting;
+import DrakeSS.User;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -15,14 +15,9 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import javafx.util.Callback;
-import org.json.JSONObject;
 
 import java.io.IOException;
 import java.net.URL;
-import java.time.DayOfWeek;
-import java.time.LocalDate;
-import java.util.Calendar;
 import java.util.ResourceBundle;
 
 public class UsersController implements Initializable {
@@ -42,13 +37,32 @@ public class UsersController implements Initializable {
             {
                 for (int i = 0; i < DatabaseHandler.users.size(); i++)
                 {
+                    User current = DatabaseHandler.users.get(i);
                     Hyperlink h = new Hyperlink(DatabaseHandler.users.get(i).getEmail() + " - ID: " + DatabaseHandler.users.get(i).getId());
                     h.setOnAction(new EventHandler<ActionEvent>() {
                                       @Override
                                       public void handle(ActionEvent e) {
-                                          System.out.println("TODO add remove user page");
+                                          Client.selecteduser = current;
+                                          try {
+                                              Stage stage = (Stage) vb.getScene().getWindow();
+                                              stage.hide();
+                                              FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("AdminUserDetail.fxml"));
+                                              Parent root1 = (Parent) fxmlLoader.load();
+                                              stage = new Stage();
+                                              stage.initModality(Modality.APPLICATION_MODAL);
+                                              stage.initStyle(StageStyle.DECORATED);
+                                              stage.setTitle("User Details - Admin View");
+                                              stage.getIcons().add(new Image("/GUI/img/drake-dark.png"));
+                                              Scene scene = new Scene(root1);
+                                              stage.setScene(scene);
+                                              scene.getStylesheets().add("css/Style.css");
+                                              stage.show();
+                                          } catch (Exception o)
+                                          {
+                                              o.printStackTrace();
+                                          }
                                       }
-                                      });
+                    });
                     vb.getChildren().add(h);
                 }
                 }

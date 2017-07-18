@@ -60,6 +60,7 @@ public class DatabaseHandler {
     }
 
     public static void saveData() throws IOException {
+        deleteMeetings();
         saveData(generateDatabaseJSON());
     }
 
@@ -148,6 +149,117 @@ public class DatabaseHandler {
     private static String readFile(String path, Charset encoding) throws IOException {
         byte[] encoded = Files.readAllBytes(Paths.get(path));
         return new String(encoded, encoding);
+    }
+
+    public static void deleteMeetings()
+    {
+        for (int i = 0; i < mainschedule.meetings.size(); i++)
+        {
+            try
+            {
+                if (mainschedule.meetings.get(i).getAttendingUsers().isEmpty() && mainschedule.meetings.get(i).getPendingUsers().isEmpty())
+                {
+                    mainschedule.meetings.remove(i);
+                    for (int j = i+1; j < mainschedule.meetings.size()+1; j++)
+                    {
+                        mainschedule.meetings.put(j-1, mainschedule.meetings.get(j));
+                    }
+                }
+            } catch (Exception e)
+            {
+            }
+            mainschedule.meetings.values().remove(null);
+        }
+    }
+
+    public static void wipeSchedule() throws IOException
+    {
+        mainschedule.meetings =  new HashMap<>();
+        saveData();
+    }
+
+    public static void deleteUser() throws IOException
+    {
+        //Delete permission data regarding the deleted user
+        for (int i = 0; i < users.size(); i++)
+        {
+            if (users.get(i).getAllowedUsers().containsValue(Client.selecteduser))
+            {
+                for (int j = 0; j < users.get(i).getAllowedUsers().size(); j++)
+                {
+                    if (users.get(i).getAllowedUsers().get(j) == Client.selecteduser)
+                    {
+                        users.get(i).getAllowedUsers().remove(j, Client.selecteduser);
+                    }
+                }
+            }
+        }
+
+        //Delete manager employee data regarding the deleted user
+        for (int i = 0; i < users.size(); i++)
+        {
+            if (users.get(i).getEmployees().containsValue(Client.selecteduser))
+            {
+                for (int j = 0; j < users.get(i).getEmployees().size(); j++)
+                {
+                    if (users.get(i).getEmployees().get(j) == Client.selecteduser)
+                    {
+                        users.get(i).getEmployees().remove(j, Client.selecteduser);
+                    }
+                }
+            }
+        }
+
+        //Delete meetings data regarding pending invites of this user
+        for (int i = 0; i < mainschedule.meetings.size(); i++)
+        {
+            if (mainschedule.meetings.get(i).getPendingUsers().containsValue(Client.selecteduser))
+            {
+                for (int j = 0; j < mainschedule.meetings.get(i).getPendingUsers().size(); j++)
+                {
+                    if (mainschedule.meetings.get(i).getPendingUsers().get(j) == Client.selecteduser)
+                    {
+                        mainschedule.meetings.get(i).getPendingUsers().remove(j, Client.selecteduser);
+                    }
+                }
+            }
+        }
+
+        //Delete meetings data regarding this user attending a meeting
+        for (int i = 0; i < mainschedule.meetings.size(); i++)
+        {
+            if (mainschedule.meetings.get(i).getAttendingUsers().containsValue(Client.selecteduser))
+            {
+                for (int j = 0; j < mainschedule.meetings.get(i).getAttendingUsers().size(); j++)
+                {
+                    if (mainschedule.meetings.get(i).getAttendingUsers().get(j) == Client.selecteduser)
+                    {
+                        mainschedule.meetings.get(i).getAttendingUsers().remove(j, Client.selecteduser);
+                    }
+                }
+            }
+        }
+
+        //Delete User
+        for (int i = 0; i < users.size(); i++)
+        {
+            try
+            {
+                if (users.get(i) == Client.selecteduser)
+                {
+                    users.remove(i);
+                    for (int j = i+1; j < users.size()+1; j++)
+                    {
+                        users.put(j-1, users.get(j));
+                    }
+                }
+            } catch (Exception e)
+            {
+            }
+            users.values().remove(null);
+        }
+
+        saveData();
     }
 
 

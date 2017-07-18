@@ -23,17 +23,19 @@ public class AccountController implements Initializable {
     public Text email;
     public Text level;
     public Button back;
-    public Button manageSchedule, manageUsers, viewMeetings, manageEmployees;
+    public Button manageSchedule, manageUsers, viewMeetings, wipe;
 
     public void initialize(URL url, ResourceBundle rb) {
 
         if (Client.permissionLevel == 3)
         {
             manageUsers.setVisible(true);
+            wipe.setVisible(true);
         }
         else
         {
             manageUsers.setVisible(false);
+            wipe.setVisible(false);
         }
 
         level.setFill(Color.GREEN);
@@ -184,6 +186,23 @@ public class AccountController implements Initializable {
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.initStyle(StageStyle.DECORATED);
         stage.setTitle("My Schedule Permissions");
+        stage.getIcons().add(new Image("/GUI/img/drake-dark.png"));
+        Scene scene = new Scene(root1);
+        stage.setScene(scene);
+        scene.getStylesheets().add("css/Style.css");
+        stage.show();
+    }
+
+    public void openConfirmation(ActionEvent event) throws IOException
+    {
+        Stage current = (Stage) email.getScene().getWindow();
+        current.hide();
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Wipe.fxml"));
+        Parent root1 = (Parent) fxmlLoader.load();
+        Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.initStyle(StageStyle.DECORATED);
+        stage.setTitle("Schedule Wipe");
         stage.getIcons().add(new Image("/GUI/img/drake-dark.png"));
         Scene scene = new Scene(root1);
         stage.setScene(scene);
