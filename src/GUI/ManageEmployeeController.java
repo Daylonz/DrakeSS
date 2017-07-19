@@ -73,46 +73,51 @@ public class ManageEmployeeController implements Initializable {
 
             for (i = 0; i < Client.selecteduser.getEmployees().size(); i++)
             {
-                Hyperlink h = new Hyperlink(Client.selecteduser.getEmployees().get(i).getEmail());
-                String s = Client.selecteduser.getEmployees().get(i).getEmail();
-                h.setOnAction(new EventHandler<ActionEvent>() {
-                    @Override
-                    public void handle(ActionEvent e) {
-                        try {
+                    Hyperlink h = new Hyperlink(Client.selecteduser.getEmployees().get(i).getEmail());
+                    String s = Client.selecteduser.getEmployees().get(i).getEmail();
+                    h.setOnAction(new EventHandler<ActionEvent>() {
+                        @Override
+                        public void handle(ActionEvent e) {
+                            try {
 
-                            if (Client.selecteduser.getEmployees().containsValue(Client.userFromEmail(s)))
-                            {
-                                for (int i = 0; i < Client.selecteduser.getEmployees().size(); i++)
+                                if (Client.selecteduser.getEmployees().containsValue(Client.userFromEmail(s)))
                                 {
-                                    if (Client.selecteduser.getEmployees().get(i) == Client.userFromEmail(s))
+                                    for (int i = 0; i < Client.selecteduser.getEmployees().size(); i++)
                                     {
-                                        Client.selecteduser.getEmployees().remove(i, Client.userFromEmail(s));
+                                        if (Client.selecteduser.getEmployees().get(i) == Client.userFromEmail(s))
+                                        {
+                                            Client.selecteduser.getEmployees().remove(i, Client.userFromEmail(s));
+                                            for (int j = i+1; j < Client.selecteduser.getEmployees().size()+1; j++)
+                                            {
+                                                Client.selecteduser.getEmployees().put(j-1,Client.selecteduser.getEmployees().get(j));
+                                            }
+                                        }
+                                        Client.selecteduser.getEmployees().values().remove(null);
                                     }
                                 }
-                            }
 
-                            DatabaseHandler.saveData();
-                            Stage stage = (Stage) vb.getScene().getWindow();
-                            stage.hide();
-                            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ManageEmployee.fxml"));
-                            Parent root1 = (Parent) fxmlLoader.load();
-                            stage = new Stage();
-                            stage.initModality(Modality.APPLICATION_MODAL);
-                            stage.initStyle(StageStyle.DECORATED);
-                            stage.setTitle("Manager Configuration");
-                            stage.getIcons().add(new Image("/GUI/img/drake-dark.png"));
-                            Scene scene = new Scene(root1);
-                            stage.setScene(scene);
-                            scene.getStylesheets().add("css/Style.css");
-                            stage.show();
+                                DatabaseHandler.saveData();
+                                Stage stage = (Stage) vb.getScene().getWindow();
+                                stage.hide();
+                                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ManageEmployee.fxml"));
+                                Parent root1 = (Parent) fxmlLoader.load();
+                                stage = new Stage();
+                                stage.initModality(Modality.APPLICATION_MODAL);
+                                stage.initStyle(StageStyle.DECORATED);
+                                stage.setTitle("Manager Configuration");
+                                stage.getIcons().add(new Image("/GUI/img/drake-dark.png"));
+                                Scene scene = new Scene(root1);
+                                stage.setScene(scene);
+                                scene.getStylesheets().add("css/Style.css");
+                                stage.show();
+                            }
+                            catch (Exception exception)
+                            {
+                                exception.printStackTrace();
+                            }
                         }
-                        catch (Exception exception)
-                        {
-                            exception.printStackTrace();
-                        }
-                    }
-                });
-               vbmgr.getChildren().add(h);
+                    });
+                    vbmgr.getChildren().add(h);
             }
             if (vbmgr.getChildren().isEmpty())
             {

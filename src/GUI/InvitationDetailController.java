@@ -27,8 +27,8 @@ public class InvitationDetailController implements Initializable {
 
     public void initialize(URL url, ResourceBundle rb)
     {
-        mstart.setText("Meeting Start: " + Client.selectedmeeting.getStartHour() + ":" + Client.selectedmeeting.getStartMinutes());
-        mend.setText("Meeting End: " + Client.selectedmeeting.getEndHour() + ":" + Client.selectedmeeting.getEndMinutes());
+        mstart.setText("Meeting Start: " + Client.selectedmeeting.getDisplayStartHour() + ":" + Client.selectedmeeting.getStartMinutes());
+        mend.setText("Meeting End: " + Client.selectedmeeting.getDisplayEndHour() + ":" + Client.selectedmeeting.getEndMinutes());
         mcreator.setText("Meeting Creator: " + Client.selectedmeeting.getCreatorEmail());
         mroom.setText("Meeting Location: Room C" + Client.selectedmeeting.getRoom());
     }

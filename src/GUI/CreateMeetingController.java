@@ -44,6 +44,7 @@ public class CreateMeetingController implements Initializable {
 
     public void initialize(URL url, ResourceBundle rb)
     {
+        overlap = false;
         Calendar startA = Calendar.getInstance();
         Calendar endA = Calendar.getInstance();
         Calendar startB = Calendar.getInstance();
@@ -84,7 +85,7 @@ public class CreateMeetingController implements Initializable {
 
                 if (check.get(Calendar.YEAR) == Client.selected.get(Calendar.YEAR) && check.get(Calendar.MONTH) == (Client.selected.get(Calendar.MONTH)) && check.get(Calendar.DAY_OF_MONTH) == Client.selected.get(Calendar.DAY_OF_MONTH)) {
                     Meeting current = DatabaseHandler.mainschedule.meetings.get(i);
-                    Hyperlink h = new Hyperlink(DatabaseHandler.mainschedule.meetings.get(i).getStartHour() + ":" + DatabaseHandler.mainschedule.meetings.get(i).getStartMinutes() + " - " + DatabaseHandler.mainschedule.meetings.get(i).getEndHour() + ":" + DatabaseHandler.mainschedule.meetings.get(i).getEndMinutes() + " - Room C" + DatabaseHandler.mainschedule.meetings.get(i).getRoom());
+                    Hyperlink h = new Hyperlink(DatabaseHandler.mainschedule.meetings.get(i).getDisplayStartHour() + ":" + DatabaseHandler.mainschedule.meetings.get(i).getStartMinutes() + " - " + DatabaseHandler.mainschedule.meetings.get(i).getDisplayEndHour() + ":" + DatabaseHandler.mainschedule.meetings.get(i).getEndMinutes() + " - Room C" + DatabaseHandler.mainschedule.meetings.get(i).getRoom());
                     h.setOnAction(new EventHandler<ActionEvent>() {
                         @Override
                         public void handle(ActionEvent e) {
@@ -256,12 +257,12 @@ public class CreateMeetingController implements Initializable {
 
     public void scheduleMeeting(ActionEvent event) throws IOException, MessagingException
     {
-        if (Client.usersToInvite.size() == 0)
+        if (Client.usersToInvite.size() < 2 || Client.usersToInvite.size() > 9)
         {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
-            alert.setHeaderText("Meeting Requires Users");
-            alert.setContentText("Please invite at least one user.");
+            alert.setHeaderText("Meeting Requirements not met");
+            alert.setContentText("Every meeting must have no less than 3 employees, and no more than 10 employees. This includes yourself.");
             alert.showAndWait();
         }
         else {
@@ -271,22 +272,16 @@ public class CreateMeetingController implements Initializable {
             int room = getRoom();
 
             start.set(Client.selected.get(Calendar.YEAR), Client.selected.get(Calendar.MONTH), Client.selected.get(Calendar.DAY_OF_MONTH), starthourselected, startminselected);
-            if (starthourselected == 12 || starthourselected < 8)
-            {
-                start.set(Calendar.AM_PM, Calendar.PM);
-            }
+            start.set(Calendar.HOUR_OF_DAY, starthourselected);
             end.set(Client.selected.get(Calendar.YEAR), Client.selected.get(Calendar.MONTH), Client.selected.get(Calendar.DAY_OF_MONTH), endhourselected, endminselected);
-            if (endhourselected == 12 || endhourselected < 8)
-            {
-                end.set(Calendar.AM_PM, Calendar.PM);
-            }
+            end.set(Calendar.HOUR_OF_DAY, endhourselected);
 
             Calendar checkStart = Calendar.getInstance();
             Calendar checkEnd = Calendar.getInstance();
             for (int i = 0; i < DatabaseHandler.mainschedule.meetings.size(); i++)
             {
-                checkStart.set(DatabaseHandler.mainschedule.meetings.get(i).getStart().get(Calendar.YEAR), DatabaseHandler.mainschedule.meetings.get(i).getStart().get(Calendar.MONTH), DatabaseHandler.mainschedule.meetings.get(i).getStart().get(Calendar.DAY_OF_MONTH), DatabaseHandler.mainschedule.meetings.get(i).getStart().get(Calendar.HOUR), DatabaseHandler.mainschedule.meetings.get(i).getStart().get(Calendar.MINUTE));
-                checkEnd.set(DatabaseHandler.mainschedule.meetings.get(i).getEnd().get(Calendar.YEAR), DatabaseHandler.mainschedule.meetings.get(i).getEnd().get(Calendar.MONTH), DatabaseHandler.mainschedule.meetings.get(i).getEnd().get(Calendar.DAY_OF_MONTH), DatabaseHandler.mainschedule.meetings.get(i).getEnd().get(Calendar.HOUR), DatabaseHandler.mainschedule.meetings.get(i).getEnd().get(Calendar.MINUTE));
+                checkStart.set(DatabaseHandler.mainschedule.meetings.get(i).getStart().get(Calendar.YEAR), DatabaseHandler.mainschedule.meetings.get(i).getStart().get(Calendar.MONTH), DatabaseHandler.mainschedule.meetings.get(i).getStart().get(Calendar.DAY_OF_MONTH), DatabaseHandler.mainschedule.meetings.get(i).getStart().get(Calendar.HOUR_OF_DAY), DatabaseHandler.mainschedule.meetings.get(i).getStart().get(Calendar.MINUTE));
+                checkEnd.set(DatabaseHandler.mainschedule.meetings.get(i).getEnd().get(Calendar.YEAR), DatabaseHandler.mainschedule.meetings.get(i).getEnd().get(Calendar.MONTH), DatabaseHandler.mainschedule.meetings.get(i).getEnd().get(Calendar.DAY_OF_MONTH), DatabaseHandler.mainschedule.meetings.get(i).getEnd().get(Calendar.HOUR_OF_DAY), DatabaseHandler.mainschedule.meetings.get(i).getEnd().get(Calendar.MINUTE));
                 if (checkStart.get(Calendar.YEAR) == Client.selected.get(Calendar.YEAR) && checkStart.get(Calendar.MONTH) == (Client.selected.get(Calendar.MONTH)) && checkStart.get(Calendar.DAY_OF_MONTH) == Client.selected.get(Calendar.DAY_OF_MONTH))
                 {
                     if (meetingOverlap(checkStart, checkEnd, start, end, DatabaseHandler.mainschedule.meetings.get(i).getRoom(), room))
@@ -311,6 +306,7 @@ public class CreateMeetingController implements Initializable {
                         scene.getStylesheets().add("css/Style.css");
                         stage.setScene(scene);
                         stage.show();
+                        break;
                     }
                 }
             }
@@ -857,39 +853,39 @@ public class CreateMeetingController implements Initializable {
                 endminselected = 30;
                 break;
             case "1:00 PM":
-                endhourselected = 1;
+                endhourselected = 13;
                 endminselected = 0;
                 break;
             case "1:30 PM":
-                endhourselected = 1;
+                endhourselected = 13;
                 endminselected = 30;
                 break;
             case "2:00 PM":
-                endhourselected = 2;
+                endhourselected = 14;
                 endminselected = 0;
                 break;
             case "2:30 PM":
-                endhourselected = 2;
+                endhourselected = 14;
                 endminselected = 30;
                 break;
             case "3:00 PM":
-                endhourselected = 3;
+                endhourselected = 15;
                 endminselected = 0;
                 break;
             case "3:30 PM":
-                endhourselected = 3;
+                endhourselected = 15;
                 endminselected = 30;
                 break;
             case "4:00 PM":
-                endhourselected = 4;
+                endhourselected = 16;
                 endminselected = 0;
                 break;
             case "4:30 PM":
-                endhourselected = 4;
+                endhourselected = 16;
                 endminselected = 30;
                 break;
             case "5:00 PM":
-                endhourselected = 5;
+                endhourselected = 17;
                 endminselected = 0;
                 break;
         }
@@ -897,6 +893,10 @@ public class CreateMeetingController implements Initializable {
 
     public boolean meetingOverlap(Calendar startA, Calendar endA, Calendar startB, Calendar endB, int roomA, int roomB)
     {
+        if (startA.get(Calendar.HOUR_OF_DAY) == startB.get(Calendar.HOUR_OF_DAY) && roomA == roomB)
+        {
+            return true;
+        }
         return (startA.before(endB) && startB.before(endA) && roomA == roomB);
     }
 

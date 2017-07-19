@@ -43,14 +43,14 @@ public class Meeting {
         start.set(Calendar.YEAR, meetingData.getJSONObject("startDate").getInt("Year"));
         start.set(Calendar.MONTH, meetingData.getJSONObject("startDate").getInt("Month"));
         start.set(Calendar.DAY_OF_MONTH, meetingData.getJSONObject("startDate").getInt("Day"));
-        start.set(Calendar.HOUR, meetingData.getJSONObject("startDate").getInt("Hour"));
+        start.set(Calendar.HOUR_OF_DAY, meetingData.getJSONObject("startDate").getInt("Hour"));
         start.set(Calendar.MINUTE, meetingData.getJSONObject("startDate").getInt("Minute"));
 
         this.end = Calendar.getInstance();
         end.set(Calendar.YEAR, meetingData.getJSONObject("endDate").getInt("Year"));
         end.set(Calendar.MONTH, meetingData.getJSONObject("endDate").getInt("Month"));
         end.set(Calendar.DAY_OF_MONTH, meetingData.getJSONObject("endDate").getInt("Day"));
-        end.set(Calendar.HOUR, meetingData.getJSONObject("endDate").getInt("Hour"));
+        end.set(Calendar.HOUR_OF_DAY, meetingData.getJSONObject("endDate").getInt("Hour"));
         end.set(Calendar.MINUTE, meetingData.getJSONObject("endDate").getInt("Minute"));
 
         this.room = meetingData.getInt("Room");
@@ -93,10 +93,11 @@ public class Meeting {
     }
     public int getStartHour()
     {
-        if (start.get(Calendar.HOUR) == 0)
-        {
-            return 12;
-        }
+        return start.get(Calendar.HOUR_OF_DAY);
+    }
+
+    public int getDisplayStartHour()
+    {
         return start.get(Calendar.HOUR);
     }
 
@@ -126,10 +127,15 @@ public class Meeting {
 
     public int getEndHour()
     {
-        if (end.get(Calendar.HOUR) == 0)
+        if (end.get(Calendar.HOUR_OF_DAY) == 0)
         {
             return 12;
         }
+        return end.get(Calendar.HOUR_OF_DAY);
+    }
+
+    public int getDisplayEndHour()
+    {
         return end.get(Calendar.HOUR);
     }
 
@@ -148,7 +154,7 @@ public class Meeting {
                 + "\"Year\" : " + start.get(Calendar.YEAR) + ", "
                 + "\"Month\" : " + start.get(Calendar.MONTH) + ", "
                 + "\"Day\" : " + start.get(Calendar.DAY_OF_MONTH) + ","
-                + "\"Hour\" : " + start.get(Calendar.HOUR) + ","
+                + "\"Hour\" : " + start.get(Calendar.HOUR_OF_DAY) + ","
                 + "\"Minute\" : " + start.get(Calendar.MINUTE) + ","
                 + "}";
 
@@ -160,7 +166,7 @@ public class Meeting {
                 + "\"Year\" : " + end.get(Calendar.YEAR) + ", "
                 + "\"Month\" : " + end.get(Calendar.MONTH) + ", "
                 + "\"Day\" : " + end.get(Calendar.DAY_OF_MONTH) + ","
-                + "\"Hour\" : " + end.get(Calendar.HOUR) + ","
+                + "\"Hour\" : " + end.get(Calendar.HOUR_OF_DAY) + ","
                 + "\"Minute\" : " + end.get(Calendar.MINUTE) + ","
                 + "}";
 

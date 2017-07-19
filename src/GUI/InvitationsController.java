@@ -41,7 +41,7 @@ public class InvitationsController implements Initializable {
             if (DatabaseHandler.mainschedule.meetings.get(i).getPendingUsers().containsValue(Client.userAccount))
             {
                 Meeting current = DatabaseHandler.mainschedule.meetings.get(i);
-                Hyperlink h = new Hyperlink(DatabaseHandler.mainschedule.meetings.get(i).getStartDay() + "-" + DatabaseHandler.mainschedule.meetings.get(i).getStartMonth() + "-" + DatabaseHandler.mainschedule.meetings.get(i).getStartYear() + " from " + DatabaseHandler.mainschedule.meetings.get(i).getStartHour() + ":" + DatabaseHandler.mainschedule.meetings.get(i).getStartMinutes() + " until " + DatabaseHandler.mainschedule.meetings.get(i).getEndHour() + ":" + DatabaseHandler.mainschedule.meetings.get(i).getEndMinutes());
+                Hyperlink h = new Hyperlink(DatabaseHandler.mainschedule.meetings.get(i).getStartDay() + "-" + DatabaseHandler.mainschedule.meetings.get(i).getStartMonth() + "-" + DatabaseHandler.mainschedule.meetings.get(i).getStartYear() + " from " + DatabaseHandler.mainschedule.meetings.get(i).getDisplayStartHour() + ":" + DatabaseHandler.mainschedule.meetings.get(i).getStartMinutes() + " until " + DatabaseHandler.mainschedule.meetings.get(i).getDisplayEndHour() + ":" + DatabaseHandler.mainschedule.meetings.get(i).getEndMinutes());
                 h.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent e){
