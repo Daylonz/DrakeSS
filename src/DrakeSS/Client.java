@@ -20,6 +20,7 @@ public class Client {
     public static String selectedStart, selectedEnd, selectedRoom, currentPersonal;
     public static Meeting selectedmeeting;
     public static User selecteduser;
+    public static Proposal selectedproposal;
 
     public static void main(String[] args) throws IOException, NoSuchAlgorithmException {
         DatabaseHandler.loadData();

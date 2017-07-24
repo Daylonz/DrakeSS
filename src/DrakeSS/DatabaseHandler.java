@@ -262,5 +262,28 @@ public class DatabaseHandler {
         saveData();
     }
 
+    public static void deleteMeeting() throws IOException
+    {
+        //Delete Meeting
+        for (int i = 0; i < mainschedule.meetings.size(); i++)
+        {
+            try
+            {
+                if (mainschedule.meetings.get(i) == Client.selectedmeeting)
+                {
+                    mainschedule.meetings.remove(i);
+                    for (int j = i+1; j < mainschedule.meetings.size()+1; j++)
+                    {
+                        mainschedule.meetings.put(j-1, mainschedule.meetings.get(j));
+                    }
+                }
+            } catch (Exception e)
+            {
+            }
+        }
+        mainschedule.meetings.values().remove(null);
+        saveData();
+    }
+
 
 }

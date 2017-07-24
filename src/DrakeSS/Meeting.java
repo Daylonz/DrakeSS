@@ -18,6 +18,7 @@ public class Meeting {
     int room;
      Map<Integer,User> pendingUsers;
      Map<Integer,User> attendingUsers;
+     Map<Integer, Proposal> proposals;
 
     public Meeting(int id, Calendar start, Calendar end, int room, User creator, Map<Integer, User> pendingUsers) throws MessagingException
     {
@@ -28,6 +29,7 @@ public class Meeting {
         this.creator = creator;
         this.pendingUsers = pendingUsers;
         this.attendingUsers = new HashMap<Integer, User>();
+        this.proposals = new HashMap<Integer, Proposal>();
 
             for (int i = 0; i < pendingUsers.size(); i++)
             {
@@ -70,6 +72,32 @@ public class Meeting {
             this.attendingUsers.put(this.attendingUsers.size(), Client.userFromEmail(a.getString(i)));
         }
 
+        JSONArray b = meetingData.getJSONArray("proposals");
+        proposals = new HashMap<Integer, Proposal>();
+        for (int i = 0; i < b.length(); i++)
+        {
+            JSONObject data = b.getJSONObject(i);
+            Calendar start = Calendar.getInstance();
+            Calendar end = Calendar.getInstance();
+            start.set(Calendar.HOUR_OF_DAY, data.getInt("startHour"));
+            start.set(Calendar.MINUTE, data.getInt("startMinutes"));
+            end.set(Calendar.HOUR_OF_DAY, data.getInt("endHour"));
+            end.set(Calendar.MINUTE, data.getInt("endMinutes"));
+            this.proposals.put(this.proposals.size(), new Proposal(start, end, Client.userFromEmail(data.getString("user"))));
+        }
+
+    }
+
+    public Map<Integer, Proposal> getProposals() {
+        return proposals;
+    }
+
+    public void setStart(Calendar start) {
+        this.start = start;
+    }
+
+    public void setEnd(Calendar end) {
+        this.end = end;
     }
 
     public Calendar getStart()
@@ -98,6 +126,10 @@ public class Meeting {
 
     public int getDisplayStartHour()
     {
+        if (start.get(Calendar.HOUR) == 0)
+        {
+            return 12;
+        }
         return start.get(Calendar.HOUR);
     }
 
@@ -136,6 +168,10 @@ public class Meeting {
 
     public int getDisplayEndHour()
     {
+        if (end.get(Calendar.HOUR) == 0)
+        {
+            return 12;
+        }
         return end.get(Calendar.HOUR);
     }
 
@@ -193,6 +229,25 @@ public class Meeting {
         return result;
     }
 
+    private JSONArray proposalsToJSON() {
+        JSONArray result = new JSONArray();
+        for (int i = 0; i < proposals.size(); i++)
+        {
+            if (proposals.get(i) != null)
+            {
+                JSONObject p = new JSONObject();
+                p.put("startHour", proposals.get(i).getStart().get(Calendar.HOUR_OF_DAY));
+                p.put("startMinutes", proposals.get(i).getStart().get(Calendar.MINUTE));
+                p.put("endHour", proposals.get(i).getEnd().get(Calendar.HOUR_OF_DAY));
+                p.put("endMinutes", proposals.get(i).getEnd().get(Calendar.MINUTE));
+                p.put("user", proposals.get(i).getUserEmail());
+                result.put(p);
+            }
+        }
+
+        return result;
+    }
+
 
     public String toJSON() {
         String s = "{\"startDate\" : " + startToJSON() + ", "
@@ -200,7 +255,8 @@ public class Meeting {
                   + "\"Room\" : " + room + ", "
                   + "\"Creator\" : " + creator.getEmail() + ", "
                   + "\"pendingUsers\" : " + pendingToJSON() + ", "
-                  + "\"attendingUsers\" : " + attendingToJSON() + ", "+ "}";
+                  + "\"attendingUsers\" : " + attendingToJSON() + ", "
+                  + "\"proposals\" : " + proposalsToJSON() + ", " + "}";
         return s;
     }
 
@@ -234,6 +290,32 @@ public class Meeting {
                 + "\n\nThank you for using DrakeSS. Have a great day!";
 
         return s;
+    }
+
+    private String getRescheduleTitle() {
+        String s = "DrakeSS Meeting Reschedule";
+        return s;
+    }
+
+    private String getRescheduleBody(String email) {
+        String s = email + " has rescheduled a meeting you are scheduled to attend!"
+                + "\n\nTo view your personal schedule, please log in through DrakeSS "
+                + "located on the computer next to the meeting room in the office."
+                + "\n\nNew Meeting Details:"
+                + "\nDate: " + start.get(Calendar.DAY_OF_MONTH) + "-" + start.get(Calendar.MONTH) + "-" + start.get(Calendar.YEAR)
+                + "\nStart Time: " + getStartHour() + ":" + getStartMinutes()
+                + "\nEnd Time: " + getEndHour() + ":" + getEndMinutes()
+                + "\nLocation:  Room C" + getRoom()
+                + "\n\nWe apologize if this might conflict with your schedule. Please contact " + email + "to voice any additional concerns about this meeting.";
+
+        return s;
+    }
+
+    public void sendReschedule() throws MessagingException
+    {
+        for (int i = 0; i < attendingUsers.size(); i++) {
+            EmailSender.sendEmail(attendingUsers.get(i).getEmail(), getRescheduleTitle(), getRescheduleBody(creator.getEmail()));
+        }
     }
 
 }

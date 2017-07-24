@@ -23,13 +23,14 @@
                   <Font size="28.0" />
                </font>
             </Text>
-            <Label fx:id="mstart" layoutX="159.0" layoutY="37.0" text="Meeting Start:" textFill="WHITE" />
-            <Label fx:id="mend" layoutX="160.0" layoutY="54.0" text="Meeting End:" textFill="WHITE" />
-            <Label fx:id="mroom" layoutX="160.0" layoutY="71.0" text="Meeting Location:" textFill="WHITE" />
-            <Label fx:id="mcreator" layoutX="161.0" layoutY="88.0" text="Meeting Creator:" textFill="WHITE" />
-            <Button fx:id="accept" layoutX="159.0" layoutY="111.0" mnemonicParsing="false" onAction="#acceptInvite" text="Accept" />
-            <Button fx:id="decline" layoutX="279.0" layoutY="111.0" mnemonicParsing="false" onAction="#declineInvite" text="Decline" />
+            <Label fx:id="mstart" layoutX="159.0" layoutY="34.0" text="Meeting Start:" textFill="WHITE" />
+            <Label fx:id="mend" layoutX="160.0" layoutY="51.0" text="Meeting End:" textFill="WHITE" />
+            <Label fx:id="mroom" layoutX="160.0" layoutY="68.0" text="Meeting Location:" textFill="WHITE" />
+            <Label fx:id="mcreator" layoutX="161.0" layoutY="85.0" text="Meeting Creator:" textFill="WHITE" />
+            <Button fx:id="accept" layoutX="126.0" layoutY="124.0" mnemonicParsing="false" onAction="#acceptInvite" text="Accept" />
+            <Button fx:id="decline" layoutX="206.0" layoutY="124.0" mnemonicParsing="false" onAction="#declineInvite" text="Decline" />
             <Button fx:id="back" layoutX="434.0" layoutY="136.0" mnemonicParsing="false" onAction="#goBack" text="Go Back" />
+            <Button fx:id="propose" layoutX="290.0" layoutY="124.0" mnemonicParsing="false" onAction="#proposeNewTime" text="Propose New Time" />
          </children>
       </Pane>
    </children>

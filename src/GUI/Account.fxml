@@ -21,13 +21,14 @@
             <Text fill="WHITE" layoutX="200.0" layoutY="91.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Account Level:" />
             <Text fx:id="email" fill="WHITE" layoutX="238.0" layoutY="74.0" strokeType="OUTSIDE" strokeWidth="0.0" text="null" />
             <Text fx:id="level" fill="WHITE" layoutX="281.0" layoutY="91.0" strokeType="OUTSIDE" strokeWidth="0.0" text="null" />
-            <Button fx:id="viewMeetings" layoutX="247.0" layoutY="113.0" mnemonicParsing="false" onAction="#openMeetings" text="View My Meetings" />
+            <Button fx:id="viewMeetings" layoutX="231.0" layoutY="112.0" mnemonicParsing="false" onAction="#openMeetings" text="View Personal Schedule" />
             <Button fx:id="manageSchedule" layoutX="211.0" layoutY="179.0" mnemonicParsing="false" onAction="#openSchedulePermissions" text="Manage Schedule Permissions" />
             <Button fx:id="otherSchedules" layoutX="238.0" layoutY="212.0" mnemonicParsing="false" onAction="#viewOther" text="View Other Schedules" />
-            <Button fx:id="manageUsers" layoutX="236.0" layoutY="246.0" mnemonicParsing="false" onAction="#openUsers" text="Manage Users (Admin)" visible="false" />
+            <Button fx:id="manageUsers" layoutX="236.0" layoutY="274.0" mnemonicParsing="false" onAction="#openUsers" text="Manage Users (Admin)" visible="false" />
             <Button fx:id="manageInvites" layoutX="217.0" layoutY="144.0" mnemonicParsing="false" onAction="#openInvites" text="Manage Meeting Invitations" />
             <Button fx:id="back" layoutX="257.0" layoutY="342.0" mnemonicParsing="false" onAction="#openMain" text="Main Schedule" />
             <Button fx:id="wipe" layoutY="381.0" mnemonicParsing="false" onAction="#openConfirmation" text="Wipe Schedule" textAlignment="CENTER" visible="false" />
+            <Button fx:id="mmii" layoutX="238.0" layoutY="243.0" mnemonicParsing="false" onAction="#manageInitiated" text="Manage My Meetings" />
          </children>
       </Pane>
    </children>

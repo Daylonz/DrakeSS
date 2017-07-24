@@ -130,4 +130,22 @@ public class InvitationDetailController implements Initializable {
         scene.getStylesheets().add("css/Style.css");
         stage.show();
     }
+
+    public void proposeNewTime(ActionEvent event) throws IOException
+    {
+        Client.selected = Client.selectedmeeting.getStart();
+        Stage current = (Stage) mroom.getScene().getWindow();
+        current.hide();
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("newTime.fxml"));
+        Parent root1 = (Parent) fxmlLoader.load();
+        Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.initStyle(StageStyle.DECORATED);
+        stage.setTitle("Meeting Time Proposal");
+        stage.getIcons().add(new Image("/GUI/img/drake-dark.png"));
+        Scene scene = new Scene(root1);
+        stage.setScene(scene);
+        scene.getStylesheets().add("css/Style.css");
+        stage.show();
+    }
 }

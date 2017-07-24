@@ -26,7 +26,7 @@ import java.util.ResourceBundle;
 
 public class DetailMeetingController implements Initializable {
 
-    public Label mstart, mend, mcreator, mattending, mpending, mroom;
+    public Label mstart, mend, mcreator, mroom;
 
     public void initialize(URL url, ResourceBundle rb)
     {
@@ -35,33 +35,5 @@ public class DetailMeetingController implements Initializable {
         mcreator.setText("Meeting Creator: " + Client.selectedmeeting.getCreatorEmail());
         mroom.setText("Meeting Location: Room C" + Client.selectedmeeting.getRoom());
 
-        String s = "Attending Users: ";
-        if (Client.selectedmeeting.getAttendingUsers().size() > 0)
-        {
-            s += Client.selectedmeeting.getAttendingUsers().get(0).getEmail();
-        }
-        if (Client.selectedmeeting.getAttendingUsers().size() > 1)
-        {
-            for (int i = 1; i < Client.selectedmeeting.getAttendingUsers().size(); i++) {
-                s+= ", ";
-                s += Client.selectedmeeting.getAttendingUsers().get(i).getEmail();
-            }
-        }
-        mattending.setText(s);
-
-        s = "Pending Users: ";
-        if (Client.selectedmeeting.getPendingUsers().size() > 0)
-        {
-            s += Client.selectedmeeting.getPendingUsers().get(0).getEmail();
-        }
-        if (Client.selectedmeeting.getPendingUsers().size() > 1)
-        {
-            for (int i = 1; i < Client.selectedmeeting.getPendingUsers().size(); i++) {
-                s+= ", ";
-                s += Client.selectedmeeting.getPendingUsers().get(i).getEmail();
-            }
-        }
-        mpending.setText(s);
     }
-
 }

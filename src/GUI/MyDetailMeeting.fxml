@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -8,7 +9,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="171.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8.0.112-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.DetailMeetingController">
+<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="171.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8.0.112-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.MyDetailMeetingController">
    <children>
       <Pane prefHeight="171.0" prefWidth="500.0">
          <children>
@@ -26,6 +27,10 @@
             <Label fx:id="mend" layoutX="2.0" layoutY="61.0" text="Meeting End:" textFill="WHITE" />
             <Label fx:id="mcreator" layoutX="2.0" layoutY="96.0" text="Meeting Creator:" textFill="WHITE" />
             <Label fx:id="mroom" layoutX="2.0" layoutY="78.0" text="Meeting Location: " textFill="WHITE" />
+            <Button fx:id="vtp" layoutX="347.0" layoutY="132.0" mnemonicParsing="false" onAction="#viewProposals" text="View Time Proposals" />
+            <Button fx:id="rs" layoutX="172.0" layoutY="132.0" mnemonicParsing="false" onAction="#reschedule" text="Reschedule Meeting" />
+            <Button fx:id="cancel" layoutX="27.0" layoutY="132.0" mnemonicParsing="false" onAction="#cancelMeeting" text="Cancel Meeting" />
+            <Button fx:id="back" layoutX="426.0" layoutY="6.0" mnemonicParsing="false" onAction="#goBack" text="Go Back" />
          </children>
       </Pane>
    </children>
