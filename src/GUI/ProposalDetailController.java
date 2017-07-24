@@ -42,11 +42,21 @@ public class ProposalDetailController implements Initializable {
         {
             for (int i = 0; i < Client.selectedmeeting.getProposals().size(); i++)
             {
-                if (Client.selectedmeeting.getProposals().get(i) == Client.selectedproposal)
+                try
                 {
-                    Client.selectedmeeting.getProposals().remove(i);
+                    if (Client.selectedmeeting.getProposals().get(i) == Client.selectedproposal)
+                    {
+                        Client.selectedmeeting.getProposals().remove(i);
+                        for (int j = i+1; j < Client.selectedmeeting.getProposals().size()+1; j++)
+                        {
+                            Client.selectedmeeting.getProposals().put(j-1, Client.selectedmeeting.getProposals().get(j));
+                        }
+                    }
+                } catch (Exception e)
+                {
                 }
             }
+            Client.selectedmeeting.getProposals().values().remove(null);
             DatabaseHandler.saveData();
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
@@ -93,12 +103,21 @@ public class ProposalDetailController implements Initializable {
     {
         for (int i = 0; i < Client.selectedmeeting.getProposals().size(); i++)
         {
-            System.out.println("Iteration "+i);
-            if (Client.selectedmeeting.getProposals().get(i) == Client.selectedproposal)
+            try
             {
-                Client.selectedmeeting.getProposals().remove(i);
+                if (Client.selectedmeeting.getProposals().get(i) == Client.selectedproposal)
+                {
+                    Client.selectedmeeting.getProposals().remove(i);
+                    for (int j = i+1; j < Client.selectedmeeting.getProposals().size()+1; j++)
+                    {
+                        Client.selectedmeeting.getProposals().put(j-1, Client.selectedmeeting.getProposals().get(j));
+                    }
+                }
+            } catch (Exception e)
+            {
             }
         }
+        Client.selectedmeeting.getProposals().values().remove(null);
         DatabaseHandler.saveData();
 
         Stage stage = (Stage) decline.getScene().getWindow();
@@ -143,7 +162,7 @@ public class ProposalDetailController implements Initializable {
             checkEnd.set(DatabaseHandler.mainschedule.meetings.get(i).getEnd().get(Calendar.YEAR), DatabaseHandler.mainschedule.meetings.get(i).getEnd().get(Calendar.MONTH), DatabaseHandler.mainschedule.meetings.get(i).getEnd().get(Calendar.DAY_OF_MONTH), DatabaseHandler.mainschedule.meetings.get(i).getEnd().get(Calendar.HOUR_OF_DAY), DatabaseHandler.mainschedule.meetings.get(i).getEnd().get(Calendar.MINUTE));
             if (checkStart.get(Calendar.YEAR) == Client.selectedproposal.getStart().get(Calendar.YEAR) && checkStart.get(Calendar.MONTH) == (Client.selectedproposal.getStart().get(Calendar.MONTH)) && checkStart.get(Calendar.DAY_OF_MONTH) == Client.selectedproposal.getStart().get(Calendar.DAY_OF_MONTH))
             {
-                if (Client.selectedproposal.getStart().before(checkEnd) && checkStart.before(Client.selectedproposal.getEnd()) && Client.selectedmeeting.getRoom() == DatabaseHandler.mainschedule.meetings.get(i).getRoom())
+                if (Client.selectedproposal.getStart().before(checkEnd) && checkStart.before(Client.selectedproposal.getEnd()) && Client.selectedmeeting.getRoom() == DatabaseHandler.mainschedule.meetings.get(i).getRoom() && Client.selectedmeeting != DatabaseHandler.mainschedule.meetings.get(i))
                 {
                     return true;
                 }

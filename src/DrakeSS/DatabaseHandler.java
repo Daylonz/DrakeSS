@@ -192,6 +192,7 @@ public class DatabaseHandler {
                         users.get(i).getAllowedUsers().remove(j, Client.selecteduser);
                     }
                 }
+                users.get(i).getAllowedUsers().values().remove(null);
             }
         }
 
@@ -207,6 +208,7 @@ public class DatabaseHandler {
                         users.get(i).getEmployees().remove(j, Client.selecteduser);
                     }
                 }
+                users.get(i).getEmployees().values().remove(null);
             }
         }
 
@@ -222,6 +224,7 @@ public class DatabaseHandler {
                         mainschedule.meetings.get(i).getPendingUsers().remove(j, Client.selecteduser);
                     }
                 }
+                mainschedule.meetings.get(i).getPendingUsers().values().remove(null);
             }
         }
 
@@ -237,6 +240,7 @@ public class DatabaseHandler {
                         mainschedule.meetings.get(i).getAttendingUsers().remove(j, Client.selecteduser);
                     }
                 }
+                mainschedule.meetings.get(i).getAttendingUsers().values().remove(null);
             }
         }
 

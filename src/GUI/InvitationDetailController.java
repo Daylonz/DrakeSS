@@ -35,20 +35,30 @@ public class InvitationDetailController implements Initializable {
 
     public void acceptInvite(ActionEvent event) throws IOException, MessagingException
     {
-            for (int i = 0; i < Client.selectedmeeting.getAttendingUsers().size(); i++)
-            {
-                if (Client.selectedmeeting.getAttendingUsers().get(i) == Client.userAccount)
-                {
-                    Client.selectedmeeting.getAttendingUsers().remove(i);
-                }
-            }
-        for (int i = 0; i < Client.selectedmeeting.getPendingUsers().size(); i++)
+        for (int i = 0; i < Client.selectedmeeting.getAttendingUsers().size(); i++)
         {
-            if (Client.selectedmeeting.getPendingUsers().get(i) == Client.userAccount)
+            if (Client.selectedmeeting.getAttendingUsers().get(i) == Client.userAccount)
             {
-                Client.selectedmeeting.getPendingUsers().remove(i, Client.userAccount);
+                Client.selectedmeeting.getAttendingUsers().remove(i);
             }
         }
+        for (int i = 0; i < Client.selectedmeeting.getPendingUsers().size(); i++)
+        {
+            try
+            {
+                if (Client.selectedmeeting.getPendingUsers().get(i) == Client.userAccount)
+                {
+                    Client.selectedmeeting.getPendingUsers().remove(i);
+                    for (int j = i+1; j < Client.selectedmeeting.getPendingUsers().size()+1; j++)
+                    {
+                        Client.selectedmeeting.getPendingUsers().put(j-1, Client.selectedmeeting.getPendingUsers().get(j));
+                    }
+                }
+            } catch (Exception e)
+            {
+            }
+        }
+        Client.selectedmeeting.getPendingUsers().values().remove(null);
         Client.selectedmeeting.getAttendingUsers().put(Client.selectedmeeting.getAttendingUsers().size(), Client.userAccount);
         DatabaseHandler.saveData();
         EmailSender.sendEmail(Client.selectedmeeting.getCreatorEmail(), "DrakeSS Meeting Notification", Client.userAccount.getEmail() + " has accepted an invitation to one of your scheduled meetings!\n\n"
@@ -81,18 +91,39 @@ public class InvitationDetailController implements Initializable {
     {
         for (int i = 0; i < Client.selectedmeeting.getAttendingUsers().size(); i++)
         {
-            if (Client.selectedmeeting.getAttendingUsers().get(i) == Client.userAccount)
+            try
             {
-                Client.selectedmeeting.getAttendingUsers().remove(i);
+                if (Client.selectedmeeting.getAttendingUsers().get(i) == Client.userAccount)
+                {
+                    Client.selectedmeeting.getAttendingUsers().remove(i);
+                    for (int j = i+1; j < Client.selectedmeeting.getAttendingUsers().size()+1; j++)
+                    {
+                        Client.selectedmeeting.getAttendingUsers().put(j-1, Client.selectedmeeting.getAttendingUsers().get(j));
+                    }
+                }
+            } catch (Exception e)
+            {
             }
         }
+        Client.selectedmeeting.getAttendingUsers().values().remove(null);
+
         for (int i = 0; i < Client.selectedmeeting.getPendingUsers().size(); i++)
         {
-            if (Client.selectedmeeting.getPendingUsers().get(i) == Client.userAccount)
+            try
             {
-                Client.selectedmeeting.getPendingUsers().remove(i, Client.userAccount);
+                if (Client.selectedmeeting.getPendingUsers().get(i) == Client.userAccount)
+                {
+                    Client.selectedmeeting.getPendingUsers().remove(i);
+                    for (int j = i+1; j < Client.selectedmeeting.getPendingUsers().size()+1; j++)
+                    {
+                        Client.selectedmeeting.getPendingUsers().put(j-1, Client.selectedmeeting.getPendingUsers().get(j));
+                    }
+                }
+            } catch (Exception e)
+            {
             }
         }
+        Client.selectedmeeting.getPendingUsers().values().remove(null);
         DatabaseHandler.saveData();
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Success");

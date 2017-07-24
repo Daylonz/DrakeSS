@@ -213,7 +213,10 @@ public class Meeting {
         JSONArray result = new JSONArray();
         for (int i = 0; i < pendingUsers.size(); i++)
         {
-           result.put(pendingUsers.get(i).getEmail());
+            if (pendingUsers.get(i) != null)
+            {
+                result.put(pendingUsers.get(i).getEmail());
+            }
         }
 
         return result;
@@ -223,7 +226,10 @@ public class Meeting {
         JSONArray result = new JSONArray();
         for (int i = 0; i < attendingUsers.size(); i++)
         {
-            result.put(attendingUsers.get(i).getEmail());
+            if (attendingUsers.get(i) != null)
+            {
+                result.put(attendingUsers.get(i).getEmail());
+            }
         }
 
         return result;
@@ -233,8 +239,6 @@ public class Meeting {
         JSONArray result = new JSONArray();
         for (int i = 0; i < proposals.size(); i++)
         {
-            if (proposals.get(i) != null)
-            {
                 JSONObject p = new JSONObject();
                 p.put("startHour", proposals.get(i).getStart().get(Calendar.HOUR_OF_DAY));
                 p.put("startMinutes", proposals.get(i).getStart().get(Calendar.MINUTE));
@@ -242,7 +246,6 @@ public class Meeting {
                 p.put("endMinutes", proposals.get(i).getEnd().get(Calendar.MINUTE));
                 p.put("user", proposals.get(i).getUserEmail());
                 result.put(p);
-            }
         }
 
         return result;
